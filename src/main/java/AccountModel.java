@@ -2,14 +2,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentModel {
+public class AccountModel {
     Connection connection;
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
-    double trafficPerMinute = 1.8;
+    String MSSQLConnection = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
+    String MYSQLConnection = "jdbc:mysql://127.0.0.1;databaseName=RSOI_02;user=Travis;";
 
-    PaymentModel()
+    AccountModel()
     {
         dbStatus = CreateConnection();
     }
@@ -31,7 +32,7 @@ public class PaymentModel {
             return false;
         }
         try {
-            connection = DriverManager.getConnection(db_uri,user,password);
+            connection = DriverManager.getConnection(MYSQLConnection);
 
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");
@@ -40,112 +41,94 @@ public class PaymentModel {
         return true;
     }
 
-    List<String> GetPaymentHistory(int numberPage)
+    List<String> GetUserNames(int numberPage)
     {
         queryStatus = true;
-        List<String> PaymentList = new ArrayList<>();
+        List<String> UserNames = new ArrayList<>();
         Statement stmtObj = null;
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {
-            PaymentList.add(e.getMessage());
+            UserNames.add(e.getMessage());
             queryStatus = false;
-            return PaymentList;
+            return UserNames;
         }
         ResultSet resObj = null;
         try {
             resObj = stmtObj.executeQuery(
-                    "SELECT ID_Pay, ID_Call " +
-                            "FROM Payment.History ps " +
-                            "WHERE ps.ID_Pay BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
+                    "SELECT ID, First_Name, Last_Name, Name_Role " +
+                            "FROM Account.Users us " +
+                            "JOIN Account.Roles rl ON(us.Role=rl.ID_Role) " +
+                            "WHERE us.ID BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
         } catch (SQLException e) {
-            PaymentList.add(e.getMessage());
+            UserNames.add(e.getMessage());
             queryStatus = false;
-            return PaymentList;
+            return UserNames;
         }
         try {
             while (resObj.next()) {
-                PaymentList.add(resObj.getString("ID_Pay") + " "+resObj.getString("ID_Call"));
+                UserNames.add(resObj.getString("ID") + " " +resObj.getString("First_Name") + " "+resObj.getString("Last_Name") + " " +resObj.getString("Name_Role"));
             }
         } catch (SQLException e) {
-            PaymentList.clear();
-            PaymentList.add(e.getMessage());
+            UserNames.clear();
+            UserNames.add(e.getMessage());
             queryStatus = false;
-            return PaymentList;
+            return UserNames;
         }
         try {
             stmtObj.close();
         } catch (SQLException e) {queryStatus = false;}
 
-        return PaymentList;
+        return UserNames;
     }
 
-    List<String> GetPursys()
+    List<String> GetAllRoles()
     {
         Statement stmtObj = null;
         queryStatus = true;
-        List<String> Pursys = new ArrayList<>();
+        List<String> Roles = new ArrayList<>();
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {
-            Pursys.add(e.getMessage());
+            Roles.add(e.getMessage());
             queryStatus = false;
-            return Pursys;
+            return Roles;
         }
         ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("SELECT ID_Cash,Cash,ID_User FROM Payment.Pursy");
+            resObj = stmtObj.executeQuery("SELECT Name_Role FROM Account.Roles");
         } catch (SQLException e) {
-            Pursys.add(e.getMessage());
+            Roles.add(e.getMessage());
             queryStatus = false;
-            return Pursys;
+            return Roles;
         }
         try {
             while(resObj.next()) {
-                Pursys.add(resObj.getString("ID_Cash") + " "+resObj.getString("Cash")+ " "+resObj.getString("ID_User"));;
+                Roles.add(resObj.getString("Name_Role"));
             }
         } catch (SQLException e) {
-            Pursys.clear();
-            Pursys.add(e.getMessage());
+            Roles.clear();
+            Roles.add(e.getMessage());
             queryStatus = false;
-            return Pursys;
+            return Roles;
         }
         try {
             stmtObj.close();
         } catch (SQLException e) {queryStatus = false;}
-        return Pursys;
+        return Roles;
     }
 
-    Boolean InsertPursy(Float Cash, Integer IdUser)
+    Boolean InsertUser(String FirstName, String LastName,String Role)
     {
         Statement stmtObj = null;
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {
-            return false;
+           return false;
         }
         ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("INSERT INTO Payment.Pursy VALUES('"+String.valueOf(Cash)+"','"+String.valueOf(IdUser)+")");
-        } catch (SQLException e) {
-        }
-        try {
-            stmtObj.close();
-        } catch (SQLException e) {}
-        return true;
-    }
-
-    Boolean AddPay(Float Cash, Integer IdCall)
-    {
-        Statement stmtObj = null;
-        try {
-            stmtObj = connection.createStatement();
-        } catch (SQLException e) {
-            return false;
-        }
-        ResultSet resObj = null;
-        try {
-            resObj = stmtObj.executeQuery("INSERT INTO Payment.History VALUES('"+String.valueOf(Cash)+"','"+String.valueOf(IdCall)+")");
+            resObj = stmtObj.executeQuery("INSERT INTO Account.Users VALUES('"+FirstName+"','"+LastName+"',"+Role+")");
         } catch (SQLException e) {
         }
         try {

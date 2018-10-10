@@ -7,6 +7,8 @@ public class CallsModel {
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
+    String MSSQLConnection = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
+    String MYSQLConnection = "jdbc:mysql://127.0.0.1;databaseName=RSOI_02;user=Travis;";
 
     CallsModel()
     {
@@ -30,7 +32,7 @@ public class CallsModel {
             return false;
         }
         try {
-            connection = DriverManager.getConnection(db_uri,user,password);
+            connection = DriverManager.getConnection(MYSQLConnection);
 
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");

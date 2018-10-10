@@ -1,0 +1,42 @@
+Login: some_user
+Password: asdfgh
+CREATE SCHEMA Account;
+CREATE SCHEMA Payment;
+CREATE SCHEMA Calls;
+GO
+CREATE TABLE Account.Users
+	(
+	ID int IDENTITY(1,1) PRIMARY KEY,
+	First_Name varchar(50) NOT NULL,
+	Last_Name varchar(50) NOT NULL,
+	Role int
+	);
+CREATE TABLE Account.Roles
+	(
+	ID_Role int IDENTITY(1,1) PRIMARY KEY,
+	Name_Role varchar(50) NOT NULL,
+	);
+
+CREATE TABLE Payment.Pursy
+	(
+	ID_Cash int IDENTITY(1,1) PRIMARY KEY,
+	Cash float,
+	ID_User int
+	);
+CREATE TABLE Payment.History
+	(
+	ID_Pay int IDENTITY(1,1) PRIMARY KEY,
+	Cash float,
+	ID_Call int
+	);
+
+CREATE TABLE Calls.History
+	(
+	ID_Call int IDENTITY(1,1) PRIMARY KEY,
+	Duration float,
+	ID_User int,
+	);
+http://localhost:8080/account?command=INSERT&First_Name=Anton&Last_Name=Ivanov&Role=1
+http://localhost:8080/?service=account&arguments="command=SHOW_ALL_USERS"
+http://localhost:8080/calls?command=INSERT&Duration=5.6&ID_User=3
+http://localhost:8080/calls?command=SHOW_ALL_CALLS

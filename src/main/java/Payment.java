@@ -24,25 +24,25 @@ public class Payment extends HttpServlet {
             {
                 if( type_command.equals("ADD_PAY"))
                 {
-                    String Duration = request.getParameter("Duration");
+                    String Cash = request.getParameter("Cash");
                     String IdUser = request.getParameter("ID_User");
-                    if(Duration != null || IdUser != null)
+                    if(Cash != null || IdUser != null)
                     {
-                        //if(model.AddPay(Float.valueOf(Duration),Integer.valueOf(IdUser)))
-                        //    response.getWriter().write("Success insert");
-                        //else response.getWriter().write("Error insert");
+                        if(model.AddPay(Float.valueOf(Cash),Integer.valueOf(IdUser)))
+                            response.getWriter().write("Success insert");
+                        else response.getWriter().write("Error insert");
                     }
                     else response.getWriter().write("You should input First_Name, Last_Name_Name, Role");
                 }
                 else if( type_command.equals("INSERT_PURSY"))
                 {
-                    String Duration = request.getParameter("Duration");
+                    String Cash = request.getParameter("Cash");
                     String IdUser = request.getParameter("ID_User");
-                    if(Duration != null || IdUser != null)
+                    if(Cash != null || IdUser != null)
                     {
-                        //if(model.InsertPursy(Float.valueOf(Duration),Integer.valueOf(IdUser)))
-                        //    response.getWriter().write("Success insert");
-                        //else response.getWriter().write("Error insert");
+                        if(model.InsertPursy(Float.valueOf(Cash),Integer.valueOf(IdUser)))
+                            response.getWriter().write("Success insert");
+                        else response.getWriter().write("Error insert");
                     }
                     else response.getWriter().write("You should input First_Name, Last_Name_Name, Role");
                 }

@@ -76,5 +76,6 @@ public class Startup
                 stmtObj.execute(query3);
             } catch (SQLException e) {
             }
+	    int adg;
         }
 }

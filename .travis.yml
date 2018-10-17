@@ -4,5 +4,3 @@ services:
   - mysql
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
-  - mysql -e 'ALTER LOGIN root WITH DEFAULT_DATABASE = 'test''
-  - mysql -e 'ALTER LOGIN root WITH PASSWORD = '''

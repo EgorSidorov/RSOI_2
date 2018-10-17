@@ -30,7 +30,29 @@ CREATE TABLE Calls.History
 	Duration float,
 	Username varchar(50) NOT NULL
 	);
-http://localhost:8080/account?command=INSERT&First_Name=Anton&Last_Name=Ivanov&Role=1
+
+
+http://localhost:8080/?service=Cross&arguments="ADD_CALL"&Duration=20 
+http://localhost:8080/?service=Cross&arguments="ADD_CASH"&Cash=20 
+http://localhost:8080/?service=Cross&arguments="WITHDRAW_CASH"&Cash=20 
+http://localhost:8080/?service=Cross&arguments="CREATE_USER"&Username=Pavel&Password=qwerty&Role=2
+http://localhost:8080/?service=Cross&arguments="LOGIN"&Username=Pavel&Password=qwerty
+http://localhost:8080/?service=Cross&arguments="SHOW_CASH"
+http://localhost:8080/?service=Cross&arguments="SHOW_CALL_HISTORY"
+
+http://localhost:8080/?service=account&arguments="command=GET_USERNAME"
+http://localhost:8080/?service=account&arguments="command=GET_ROLE"
 http://localhost:8080/?service=account&arguments="command=SHOW_ALL_USERS"
-http://localhost:8080/calls?command=INSERT&Duration=5.6&ID_User=3
-http://localhost:8080/calls?command=SHOW_ALL_CALLS
+http://localhost:8080/?service=account&arguments="command=SHOW_ALL_ROLES"
+http://localhost:8080/?service=account&arguments="command=IS_LOGGED"
+http://localhost:8080/?service=account&arguments="command=LOGOUT"
+http://localhost:8080/?service=account&arguments="command=LOGIN amp Username=Pavel amp Password=qwerty"
+http://localhost:8080/?service=account&arguments="command=CREATE_USER amp Username=Pavel amp Password=qwerty amp Role=2"
+
+http://localhost:8080/?service=calls&arguments="command=SHOW_CALL_HISTORY"
+http://localhost:8080/?service=calls&arguments="command=ADD_CALL amp Duration=20"
+
+http://localhost:8080/?service=payment&arguments="command=CREATE_PURSY amp Cash=20 amp Username=Egor"
+http://localhost:8080/?service=payment&arguments="command=ADD_CASH amp Cash=20"
+http://localhost:8080/?service=payment&arguments="command=WITHDRAW_CASH amp Cash=20"
+http://localhost:8080/?service=payment&arguments="command=SHOW_CASH"

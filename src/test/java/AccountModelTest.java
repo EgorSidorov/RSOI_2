@@ -21,7 +21,7 @@ public class AccountModelTest {
             model.AddRole("beginner");
         }
     }
-
+/*
     @Test
     public void getDbStatus() throws Exception {
         AccountModel model = new AccountModel();
@@ -85,5 +85,6 @@ public class AccountModelTest {
         String token = model.Login("Egor6","qwerty");
         assertEquals("master",model.GetRole(token));
     }
+*/
 
 }

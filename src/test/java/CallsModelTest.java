@@ -1,6 +1,7 @@
 ﻿import org.junit.Assert;
 import org.junit.Test;
 import org.junit.BeforeClass;
+
 public class CallsModelTest {
 
     @BeforeClass
@@ -18,7 +19,7 @@ public class CallsModelTest {
             model.AddRole("beginner");
         }
     }
-
+/*
     @Test
     public void getDbStatus() throws Exception {
         CallsModel model = new CallsModel();
@@ -43,5 +44,5 @@ public class CallsModelTest {
         CallsModel model = new CallsModel();
         //assertEquals(true,model.InsertCall(Float.valueOf(100),1));
     }
-
+*/
 }

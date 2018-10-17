@@ -1,13 +1,7 @@
-﻿/**
- * Created by Егор on 10.10.2018.
- */
-
-import org.junit.BeforeClass;
-
-import java.util.List;
-
-import org.junit.Assert;
+﻿import org.junit.Assert;
 import org.junit.Test;
+import org.junit.BeforeClass;
+import java.util.List;
 public class AccountModelTest {
 
     @BeforeClass

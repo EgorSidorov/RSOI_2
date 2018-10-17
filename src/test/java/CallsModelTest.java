@@ -1,9 +1,6 @@
-﻿/**
- * Created by Егор on 10.10.2018.
- */
-import org.junit.BeforeClass;
-import org.junit.Assert;
+﻿import org.junit.Assert;
 import org.junit.Test;
+import org.junit.BeforeClass;
 public class CallsModelTest {
 
     @BeforeClass

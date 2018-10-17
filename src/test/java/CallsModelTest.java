@@ -31,8 +31,8 @@ public class CallsModelTest {
     @Test
     public void ShowAllHistory() throws Exception {
         CallsModel model = new CallsModel();
-	model.AddCall("20","Egor");
-        Assert.assertEquals(false,model.ShowCallHistory("Egor",0).isEmpty());
+	model.AddCall("20","Egor2");
+        Assert.assertEquals(false,model.ShowCallHistory("Egor2",0).isEmpty());
     }
 
 }

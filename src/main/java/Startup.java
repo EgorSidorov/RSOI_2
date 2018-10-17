@@ -54,15 +54,15 @@ public class Startup
             } catch (SQLException e) {
             }
             try {
-                stmtObj.query(query1);
+                stmtObj.execute(query1);
             } catch (SQLException e) {
             }
             try {
-                stmtObj.query(query2);
+                stmtObj.execute(query2);
             } catch (SQLException e) {
             }
             try {
-                stmtObj.query(query3);
+                stmtObj.execute(query3);
             } catch (SQLException e) {
             }
         }

@@ -35,7 +35,7 @@ public class AccountModel {
             return false;
         }
         try {
-            connection = DriverManager.getConnection(db_uri);
+            connection = DriverManager.getConnection(db_uri,"root","");
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");
             return false;

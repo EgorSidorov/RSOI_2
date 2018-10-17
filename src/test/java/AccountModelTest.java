@@ -7,7 +7,7 @@ public class AccountModelTest {
 
     @BeforeClass
     public static void BeforeTest(){
-        Startup.initializeDB();
+        Startup.InitializeDB();
         AccountModel model = new AccountModel();
         model.CreateUser("Egor","qwerty","1");
         model.CreateUser("Egor2","qwerty","1");

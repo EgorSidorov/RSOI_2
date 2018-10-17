@@ -3,7 +3,7 @@ import org.junit.Test;
 import org.junit.BeforeClass;
 import java.util.List;
 
-public class PaymentModelTest {
+public class CallsModelTest {
 
     @BeforeClass
     public static void BeforeTest(){

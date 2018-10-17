@@ -32,21 +32,21 @@ public class PaymentModelTest {
     public void AddCash() throws Exception {
         PaymentModel model = new PaymentModel();
 	model.CreatePursy("Egor2");
-        Assert.assertEquals(true,model.AddCash(20,"Egor2"));
+        Assert.assertEquals(true,model.AddCash("20","Egor2"));
     }
 
     @Test
     public void WithdrawCash() throws Exception {
         PaymentModel model = new PaymentModel();
 	model.CreatePursy("Egor3");
-        Assert.assertEquals(true,model.WithdrawCash(20,"Egor3"));
+        Assert.assertEquals(true,model.WithdrawCash("20","Egor3"));
     }
 
     @Test
     public void ShowCash() throws Exception {
         PaymentModel model = new PaymentModel();
 	model.CreatePursy("Egor4");
-        Assert.assertEquals(false,model.ShowCash().isEmpty("Egor4"));
+        Assert.assertEquals(false,model.ShowCash("Egor4").isEmpty());
     }
 
 }

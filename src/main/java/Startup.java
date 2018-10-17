@@ -62,6 +62,7 @@ public class Startup
             try {
                 stmtObj = connection.createStatement();
             } catch (SQLException e) {
+		return;
             }
             try {
                 stmtObj.execute(query1);

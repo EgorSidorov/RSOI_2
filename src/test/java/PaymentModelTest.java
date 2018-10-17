@@ -25,28 +25,28 @@ public class PaymentModelTest {
     @Test
     public void CreatePursy() throws Exception {
         PaymentModel model = new PaymentModel();
-        Assert.assertEquals(true,model.CreatePursy("Egor"));
+        Assert.assertEquals(true,model.CreatePursy("Egor21"));
     }
 
     @Test
     public void AddCash() throws Exception {
         PaymentModel model = new PaymentModel();
-	model.CreatePursy("Egor2");
-        Assert.assertEquals(true,model.AddCash("20","Egor2"));
+	model.CreatePursy("Egor20");
+        Assert.assertEquals(true,model.AddCash("20","Egor20"));
     }
 
     @Test
     public void WithdrawCash() throws Exception {
         PaymentModel model = new PaymentModel();
-	model.CreatePursy("Egor3");
-        Assert.assertEquals(true,model.WithdrawCash("20","Egor3"));
+	model.CreatePursy("Egor22");
+        Assert.assertEquals(true,model.WithdrawCash("20","Egor22"));
     }
 
     @Test
     public void ShowCash() throws Exception {
         PaymentModel model = new PaymentModel();
-	model.CreatePursy("Egor4");
-        Assert.assertEquals(false,model.ShowCash("Egor4").isEmpty());
+	model.CreatePursy("Egor23");
+        Assert.assertEquals(false,model.ShowCash("Egor23").isEmpty());
     }
 
 }

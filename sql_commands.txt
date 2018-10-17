@@ -7,8 +7,8 @@ GO
 CREATE TABLE Account.Users
 	(
 	ID int IDENTITY(1,1) PRIMARY KEY,
-	First_Name varchar(50) NOT NULL,
-	Last_Name varchar(50) NOT NULL,
+	Username varchar(50) NOT NULL,
+	Pssword varchar(50) NOT NULL,
 	Role int
 	);
 CREATE TABLE Account.Roles
@@ -21,20 +21,14 @@ CREATE TABLE Payment.Pursy
 	(
 	ID_Cash int IDENTITY(1,1) PRIMARY KEY,
 	Cash float,
-	ID_User int
-	);
-CREATE TABLE Payment.History
-	(
-	ID_Pay int IDENTITY(1,1) PRIMARY KEY,
-	Cash float,
-	ID_Call int
+	Username varchar(50) NOT NULL
 	);
 
 CREATE TABLE Calls.History
 	(
 	ID_Call int IDENTITY(1,1) PRIMARY KEY,
 	Duration float,
-	ID_User int,
+	Username varchar(50) NOT NULL
 	);
 http://localhost:8080/account?command=INSERT&First_Name=Anton&Last_Name=Ivanov&Role=1
 http://localhost:8080/?service=account&arguments="command=SHOW_ALL_USERS"

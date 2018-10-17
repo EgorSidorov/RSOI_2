@@ -7,9 +7,7 @@ public class PaymentModel {
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
-    double trafficPerMinute = 1.8;
-    String MSSQLConnection = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
-    String MYSQLConnection = "jdbc:mysql://127.0.0.1;databaseName=RSOI_02;user=Travis;";
+
     PaymentModel()
     {
         dbStatus = CreateConnection();
@@ -20,19 +18,22 @@ public class PaymentModel {
         return  dbStatus;
     }
 
+    Boolean GetQueryStatus()
+    {
+        return  queryStatus;
+    }
+
     Boolean CreateConnection()
     {
-        String db_uri = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
-        String user = "some_user";
-        String password = "asdfgh";
+        String db_uri = Startup.GetConnection();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(Startup.GetDriver());
         } catch (ClassNotFoundException e) {
             System.out.print("\nError find MSSQL driver\n");
             return false;
         }
         try {
-            connection = DriverManager.getConnection(MYSQLConnection);
+            connection = DriverManager.getConnection(db_uri);
 
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");
@@ -117,7 +118,7 @@ public class PaymentModel {
         return Pursys;
     }
 
-    Boolean InsertPursy(Float Cash, Integer IdUser)
+    Boolean CreatePursy(String username)
     {
         Statement stmtObj = null;
         try {
@@ -125,10 +126,10 @@ public class PaymentModel {
         } catch (SQLException e) {
             return false;
         }
-        ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("INSERT INTO Payment.Pursy VALUES('"+String.valueOf(Cash)+"','"+String.valueOf(IdUser)+")");
+            stmtObj.execute("INSERT INTO Payment.Pursy (Cash,Username) VALUES("+String.valueOf(0)+",'"+username+"')");
         } catch (SQLException e) {
+            return false;
         }
         try {
             stmtObj.close();
@@ -136,7 +137,7 @@ public class PaymentModel {
         return true;
     }
 
-    Boolean AddPay(Float Cash, Integer IdCall)
+    Boolean AddCash(String cash, String username)
     {
         Statement stmtObj = null;
         try {
@@ -144,10 +145,10 @@ public class PaymentModel {
         } catch (SQLException e) {
             return false;
         }
-        ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("INSERT INTO Payment.History VALUES('"+String.valueOf(Cash)+"','"+String.valueOf(IdCall)+")");
+            stmtObj.execute("UPDATE Payment.Pursy SET Cash = Cash + "+cash+" WHERE Username='"+username+"'");
         } catch (SQLException e) {
+            return false;
         }
         try {
             stmtObj.close();
@@ -155,5 +156,54 @@ public class PaymentModel {
         return true;
     }
 
+    Boolean WithdrawCash(String cash, String username)
+    {
+        Statement stmtObj = null;
+        try {
+            stmtObj = connection.createStatement();
+        } catch (SQLException e) {
+            return false;
+        }
+        try {
+            stmtObj.execute("UPDATE Payment.Pursy SET Cash = Cash - "+cash+" WHERE Username='"+username+"'");
+        } catch (SQLException e) {
+            return false;
+        }
+        try {
+            stmtObj.close();
+        } catch (SQLException e) {}
+        return true;
+    }
 
+    String ShowCash(String username)
+    {
+        queryStatus = true;
+        Statement stmtObj = null;
+        String outputCash = "";
+        try {
+            stmtObj = connection.createStatement();
+        } catch (SQLException e) {
+            queryStatus = false;
+            return "";
+        }
+        ResultSet resObj = null;
+        try {
+            resObj = stmtObj.executeQuery("SELECT Cash FROM Payment.Pursy WHERE Username='"+username+"'");
+        } catch (SQLException e) {
+            queryStatus = false;
+            return "";
+        }
+        try {
+            if (resObj.next()) {
+                outputCash = resObj.getString("Cash");
+            }
+        } catch (SQLException e) {
+            queryStatus = false;
+            return "";
+        }
+        try {
+            stmtObj.close();
+        } catch (SQLException e) {}
+        return outputCash;
+    }
 }

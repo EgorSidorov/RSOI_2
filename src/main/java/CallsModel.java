@@ -7,8 +7,6 @@ public class CallsModel {
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
-    String MSSQLConnection = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
-    String MYSQLConnection = "jdbc:mysql://127.0.0.1;databaseName=RSOI_02;user=Travis;";
 
     CallsModel()
     {
@@ -22,17 +20,15 @@ public class CallsModel {
 
     Boolean CreateConnection()
     {
-        String db_uri = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;";
-        String user = "some_user";
-        String password = "asdfgh";
+        String db_uri = Startup.GetConnection();
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(Startup.GetDriver());
         } catch (ClassNotFoundException e) {
             System.out.print("\nError find MSSQL driver\n");
             return false;
         }
         try {
-            connection = DriverManager.getConnection(MYSQLConnection);
+            connection = DriverManager.getConnection(db_uri);
 
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");
@@ -41,7 +37,7 @@ public class CallsModel {
         return true;
     }
 
-    List<String> GetCallsHistory(int numberPage)
+    List<String> ShowCallHistory(String username,int numberPage)
     {
         queryStatus = true;
         List<String> CallsList = new ArrayList<>();
@@ -56,9 +52,9 @@ public class CallsModel {
         ResultSet resObj = null;
         try {
             resObj = stmtObj.executeQuery(
-                    "SELECT ID_Call, Duration, ID_User " +
+                    "SELECT Duration, Username " +
                             "FROM Calls.History hs " +
-                            "WHERE hs.ID_Call BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
+                            "WHERE hs.Username ='" + username + "' AND hs.ID_Call BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
         } catch (SQLException e) {
             CallsList.add(e.getMessage());
             queryStatus = false;
@@ -66,7 +62,7 @@ public class CallsModel {
         }
         try {
             while (resObj.next()) {
-                CallsList.add(resObj.getString("ID_Call") + " "+resObj.getString("Duration") + " " +resObj.getString("ID_User"));
+                CallsList.add(resObj.getString("Duration") + " " +resObj.getString("Username"));
             }
         } catch (SQLException e) {
             CallsList.clear();
@@ -81,7 +77,7 @@ public class CallsModel {
         return CallsList;
     }
 
-    Boolean InsertCall(Float Duration, Integer IdUser)
+    Boolean AddCall(String duration, String username)
     {
         Statement stmtObj = null;
         try {
@@ -89,10 +85,10 @@ public class CallsModel {
         } catch (SQLException e) {
             return false;
         }
-        ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("INSERT INTO Calls.History VALUES("+Duration.toString()+","+IdUser.toString()+")");
+            stmtObj.execute("INSERT INTO Calls.History (Duration, Username) VALUES("+duration+",'"+username+"')");
         } catch (SQLException e) {
+            return false;
         }
         try {
             stmtObj.close();

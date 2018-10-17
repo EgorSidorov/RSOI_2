@@ -12,52 +12,63 @@ import java.io.IOException;
 public class Payment extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        RequestGetPost(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestGetPost(request,response);
+    }
+
+    private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         PaymentModel model = new PaymentModel();
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");
+            String cash = request.getParameter("Cash");
+            String username = request.getParameter("Username");
             if(type_command != null)
             {
-                if( type_command.equals("ADD_PAY"))
+                if( type_command.equals("ADD_CASH"))
                 {
-                    String Cash = request.getParameter("Cash");
-                    String IdUser = request.getParameter("ID_User");
-                    if(Cash != null || IdUser != null)
+                    if(cash != null || username != null)
                     {
-                        if(model.AddPay(Float.valueOf(Cash),Integer.valueOf(IdUser)))
-                            response.getWriter().write("Success insert");
-                        else response.getWriter().write("Error insert");
+                        if(model.AddCash(cash,username))
+                            response.getWriter().write("Success add");
+                        else response.getWriter().write("Error add");
                     }
-                    else response.getWriter().write("You should input First_Name, Last_Name_Name, Role");
+                    else response.getWriter().write("Error.You should input First_Name, Last_Name_Name, Role");
                 }
-                else if( type_command.equals("INSERT_PURSY"))
+                else if( type_command.equals("WITHDRAW_CASH"))
                 {
-                    String Cash = request.getParameter("Cash");
-                    String IdUser = request.getParameter("ID_User");
-                    if(Cash != null || IdUser != null)
+                    if(cash != null || username != null)
                     {
-                        if(model.InsertPursy(Float.valueOf(Cash),Integer.valueOf(IdUser)))
-                            response.getWriter().write("Success insert");
-                        else response.getWriter().write("Error insert");
+                        if(model.WithdrawCash(cash,username))
+                            response.getWriter().write("Success withdraw");
+                        else response.getWriter().write("Error withdraw");
                     }
-                    else response.getWriter().write("You should input First_Name, Last_Name_Name, Role");
+                    else response.getWriter().write("Error.You should input First_Name, Last_Name_Name, Role");
                 }
-                else if( type_command.equals("SHOW_PAYMENT_HISTORY") )
+                else if( type_command.equals("CREATE_PURSY"))
                 {
-                    String page = request.getParameter("page");
-                    if(page != null)
-                        response.getWriter().write(String.valueOf(model.GetPaymentHistory(Integer.parseInt(page))));
-                    else response.getWriter().write(String.valueOf(model.GetPaymentHistory(0)));
+                    if(username != null)
+                    {
+                        if(model.CreatePursy(username))
+                            response.getWriter().write("Success create pursy");
+                        else response.getWriter().write("Error create pursy");
+                    }
+                    else response.getWriter().write("Error.You should input First_Name, Last_Name_Name, Role");
                 }
-                else if( type_command.equals("SHOW_ALL_PURSYS") )
+                else if( type_command.equals("SHOW_CASH"))
                 {
-                    String page = request.getParameter("page");
-                    if(page != null)
-                        response.getWriter().write(String.valueOf(model.GetPursys()));
+                    if(username != null)
+                    {
+                        String outputCash = model.ShowCash(username);
+                        if(model.GetQueryStatus())
+                            response.getWriter().write(outputCash);
+                        else response.getWriter().write("Error get cash");
+                    }
+                    else response.getWriter().write("Error.You should input First_Name, Last_Name_Name, Role");
                 }
                 else response.getWriter().write("Unknown command");
             }

@@ -8,7 +8,7 @@ public class Startup
         //private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         
         public static String GetConnectionStr() {
-            return "jdbc:mysql://127.0.0.1/test";
+            return "jdbc:mysql://127.0.0.1:3306/test";
         }
 
         public static String GetDriver() {

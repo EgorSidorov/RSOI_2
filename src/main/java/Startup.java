@@ -24,6 +24,7 @@ public class Startup
             try {
                 connection = DriverManager.getConnection(GetConnectionStr());
             } catch (SQLException e) {
+                return;
             }
             String query1 = "DROP TABLE Account.Users; DROP TABLE Account.Roles; DROP TABLE Payment.Pursy; DROP TABLE Calls.History;";
             String query2 = "CREATE SCHEMA Account;\n" +

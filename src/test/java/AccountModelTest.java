@@ -2,6 +2,7 @@
 import org.junit.Test;
 import org.junit.BeforeClass;
 import java.util.List;
+
 public class AccountModelTest {
 
     @BeforeClass
@@ -21,32 +22,32 @@ public class AccountModelTest {
         }
     }
 
-    @org.junit.Test
+    @Test
     public void getDbStatus() throws Exception {
         AccountModel model = new AccountModel();
         assertEquals(true,model.GetDbStatus());
     }
 
-    @org.junit.Test
+    @Test
     public void createConnection() throws Exception {
         AccountModel model = new AccountModel();
         assertEquals(true,model.CreateConnection());
     }
 
-    @org.junit.Test
+    @Test
     public void getAllRoles() throws Exception {
         AccountModel model = new AccountModel();
         model.GetAllRoles();
         assertEquals(true,model.queryStatus);
     }
 
-    @org.junit.Test
+    @Test
     public void CreateUser() throws Exception {
         AccountModel model = new AccountModel();
         assertEquals(false,model.CreateUser("Egor","qwerty","1"));
     }
 
-    @org.junit.Test
+    @Test
     public void Login() throws Exception {
         AccountModel model = new AccountModel();
         String token = model.Login("Egor2","qwerty");
@@ -54,7 +55,7 @@ public class AccountModelTest {
         assertEquals(false,token.isEmpty());
     }
 
-    @org.junit.Test
+    @Test
     public void getUserNames() throws Exception {
         AccountModel model = new AccountModel();
         String token = model.Login("Egor3","qwerty");
@@ -64,21 +65,21 @@ public class AccountModelTest {
         assertEquals(true,model.GetQueryStatus());
     }
 
-    @org.junit.Test
+    @Test
     public void Logout() throws Exception {
         AccountModel model = new AccountModel();
         String token = model.Login("Egor4","qwerty");
         assertEquals(true,model.Logout(token));
     }
 
-    @org.junit.Test
+    @Test
     public void GetUsername() throws Exception {
         AccountModel model = new AccountModel();
         String token = model.Login("Egor5","qwerty");
         assertEquals("Egor5",model.GetUsername(token));
     }
 
-    @org.junit.Test
+    @Test
     public void GetRole() throws Exception {
         AccountModel model = new AccountModel();
         String token = model.Login("Egor6","qwerty");

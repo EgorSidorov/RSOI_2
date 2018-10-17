@@ -19,19 +19,19 @@ public class CallsModelTest {
         }
     }
 
-    @org.junit.Test
+    @Test
     public void getDbStatus() throws Exception {
         CallsModel model = new CallsModel();
         assertEquals(true,model.GetDbStatus());
     }
 
-    @org.junit.Test
+    @Test
     public void createConnection() throws Exception {
         CallsModel model = new CallsModel();
         assertEquals(true,model.CreateConnection());
     }
 
-    @org.junit.Test
+    @Test
     public void GetCallsHistory() throws Exception {
         CallsModel model = new CallsModel();
         //model.GetCallsHistory(0);

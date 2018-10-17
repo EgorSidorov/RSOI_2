@@ -8,11 +8,11 @@ public class Startup
         private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         
         public static String GetConnectionStr() {
-            return MYSQLCONNECTION;
+            "jdbc:mysql://localhost:3306;databaseName=test;user=root;password=";
         }
 
         public static String GetDriver() {
-            return MYSQLDRIVER;
+            "com.mysql.jdbc.Driver";
         }
         
         public static void InitializeDB(){

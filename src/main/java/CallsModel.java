@@ -20,7 +20,7 @@ public class CallsModel {
 
     Boolean CreateConnection()
     {
-        String db_uri = Startup.GetConnection();
+        String db_uri = Startup.GetConnectionStr();
         try {
             Class.forName(Startup.GetDriver());
         } catch (ClassNotFoundException e) {

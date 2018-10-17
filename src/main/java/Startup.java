@@ -27,11 +27,11 @@ public class Startup
                 return;
             }
             String query1 = "DROP TABLE Account.Users; DROP TABLE Account.Roles; DROP TABLE Payment.Pursy; DROP TABLE Calls.History;";
-            String query2 = "CREATE SCHEMA Account;\n" +
-                            "CREATE SCHEMA Payment;\n" +
-                            "CREATE SCHEMA Calls;\n" +
-                            "GO";
-            String query3 = "CREATE TABLE Account.Users\n" +
+            String query2 = "CREATE SCHEMA Account;";
+            String query3 = "CREATE SCHEMA Payment;";
+            String query4 = "CREATE SCHEMA Calls;";
+                            
+            String query5 = "CREATE TABLE Account.Users\n" +
                             "\t(\n" +
                             "\tID int IDENTITY(1,1) PRIMARY KEY,\n" +
                             "\tUsername varchar(50) NOT NULL,\n" +
@@ -74,6 +74,14 @@ public class Startup
             }
             try {
                 stmtObj.execute(query3);
+            } catch (SQLException e) {
+            }
+	    try {
+                stmtObj.execute(query4);
+            } catch (SQLException e) {
+            }
+	    try {
+                stmtObj.execute(query5);
             } catch (SQLException e) {
             }
         }

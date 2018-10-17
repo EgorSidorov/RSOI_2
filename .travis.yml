@@ -3,4 +3,4 @@ jdk: oraclejdk8
 services:
   - mysql
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test; GO USE test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'

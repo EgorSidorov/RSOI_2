@@ -13,7 +13,7 @@ public class Startup
             } catch (ClassNotFoundException e) {
             }
             try {
-                connection = DriverManager.getConnection(GetConnection);
+                connection = DriverManager.getConnection(GetConnection());
             } catch (SQLException e) {
             }
             String query1 = "DROP TABLE Account.Users; DROP TABLE Account.Roles; DROP TABLE Payment.Pursy; DROP TABLE Calls.History;";

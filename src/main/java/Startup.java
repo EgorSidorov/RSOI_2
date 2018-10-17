@@ -22,7 +22,7 @@ public class Startup
             } catch (ClassNotFoundException e) {
             }
             try {
-                connection = DriverManager.getConnection(GetConnectionStr(),"root","");
+                connection = DriverManager.getConnection(GetConnectionStr());
             } catch (SQLException e) {
                 return;
             }

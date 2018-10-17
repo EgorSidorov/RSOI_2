@@ -2,10 +2,10 @@ import java.sql.*;
 
 public class Startup
 {
-        private String MYSQLCONNECTION = "jdbc:mysql://localhost:3306;databaseName=test;user=root;password=";
-        private String MSSQLCONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;user=some_user;password=asdfgh";
-        private String MYSQLDRIVER = "com.mysql.jdbc.Driver";
-        private String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        private static String MYSQLCONNECTION = "jdbc:mysql://localhost:3306;databaseName=test;user=root;password=";
+        private static String MSSQLCONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;user=some_user;password=asdfgh";
+        private static String MYSQLDRIVER = "com.mysql.jdbc.Driver";
+        private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         
         public static String GetConnectionStr() {
             return MYSQLCONNECTION;

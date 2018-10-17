@@ -26,7 +26,7 @@ public class AccountModel {
 
     Boolean CreateConnection()
     {
-        String db_uri = Startup.GetConnection();
+        String db_uri = Startup.GetConnectionStr();
         try {
             Class.forName(Startup.GetDriver());
         } catch (ClassNotFoundException e) {
@@ -34,7 +34,7 @@ public class AccountModel {
             return false;
         }
         try {
-            connection = DriverManager.getConnectionStr(db_uri);
+            connection = DriverManager.getConnection(db_uri);
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");
             return false;

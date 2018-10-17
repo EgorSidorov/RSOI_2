@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by Егор on 10.10.2018.
  */
 
@@ -6,7 +6,8 @@ import org.junit.BeforeClass;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Assert;
+import org.junit.Test;
 public class AccountModelTest {
 
     @BeforeClass

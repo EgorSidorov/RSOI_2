@@ -1,7 +1,9 @@
-/**
+﻿/**
  * Created by Егор on 10.10.2018.
  */
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.BeforeClass;
+import org.junit.Assert;
+import org.junit.Test;
 public class CallsModelTest {
 
     @BeforeClass

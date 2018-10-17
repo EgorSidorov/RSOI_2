@@ -33,7 +33,7 @@ public class PaymentModel {
             return false;
         }
         try {
-            connection = DriverManager.getConnection(db_uri,"root","");
+            connection = DriverManager.getConnection(db_uri);
 
         } catch (SQLException e) {
             System.out.print("\nError get connection "+e.getMessage() + "\n");

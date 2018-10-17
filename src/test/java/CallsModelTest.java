@@ -25,14 +25,14 @@ public class CallsModelTest {
     @Test
     public void AddCall() throws Exception {
         CallsModel model = new CallsModel();
-        Assert.assertEquals(true,model.AddCall(20,"Egor"));
+        Assert.assertEquals(true,model.AddCall("20","Egor"));
     }
 
     @Test
     public void ShowAllHistory() throws Exception {
         CallsModel model = new CallsModel();
-	model.AddCall(20,"Egor");
-        Assert.assertEquals(false,model.ShowAllHistory("Egor",0).isEmpty());
+	model.AddCall("20","Egor");
+        Assert.assertEquals(false,model.ShowCallHistory("Egor",0).isEmpty());
     }
 
 }

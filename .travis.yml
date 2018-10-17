@@ -3,4 +3,4 @@ jdk: oraclejdk8
 services:
   - mysql
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test; Exec sp_defaultdb @loginame='root', @defdb='test' '

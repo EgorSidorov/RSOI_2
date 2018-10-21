@@ -2,20 +2,25 @@ import java.sql.*;
 
 public class Startup
 {
-        //private static String MYSQLCONNECTION = "jdbc:mysql://localhost:3306/test";
-        //private static String MSSQLCONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;user=some_user;password=asdfgh";
-        //private static String MYSQLDRIVER = "com.mysql.jdbc.Driver";
-        //private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        private static String MYSQLCONNECTION = "jdbc:mysql://localhost:3306/test?user=root&password=&useUnicode=true";
+        private static String MSSQLCONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;user=some_user;password=asdfgh";
+        private static String MYSQLDRIVER = "com.mysql.jdbc.Driver";
+        private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
+        static boolean hasInitialized = false;
         
         public static String GetConnectionStr() {
-            return "jdbc:mysql://127.0.0.1:3306/test?user=root&password=&useUnicode=true";
+            return MYSQLCONNECTION;
         }
 
         public static String GetDriver() {
-            return "com.mysql.jdbc.Driver";
+            return MYSQLDRIVER;
         }
         
         public static void InitializeDB(){
+            if(hasInitialized)
+                return;
+            hasInitialized = true;
             Connection connection = null;
             try {
                 Class.forName(GetDriver());
@@ -26,17 +31,18 @@ public class Startup
             } catch (SQLException e) {
                 return;
             }
-            String query1 = "DROP TABLE Account.Users; DROP TABLE Account.Roles; DROP TABLE Payment.Pursy; DROP TABLE Calls.History;";
+            String query1 = "DROP TABLE Account.Info; DROP TABLE Account.Roles; DROP TABLE Payment.Pursy; DROP TABLE Calls.History;";
             String query2 = "CREATE SCHEMA Account;";
             String query3 = "CREATE SCHEMA Payment;";
             String query4 = "CREATE SCHEMA Calls;";
                             
-            String query5 = "CREATE TABLE Account.Users\n" +
+            String query5 = "CREATE TABLE Account.Info\n" +
                             "\t(\n" +
                             "\tID int IDENTITY(1,1) PRIMARY KEY,\n" +
                             "\tUsername varchar(50) NOT NULL,\n" +
-                            "\tPssword varchar(50) NOT NULL,\n" +
-                            "\tRole int\n" +
+                            "\tPassword varchar(50) NOT NULL,\n" +
+                            "\tRole int,\n" +
+                            "\tCookie varchar(50) \n" +
                             "\t);\n" +
                             "CREATE TABLE Account.Roles\n" +
                             "\t(\n" +

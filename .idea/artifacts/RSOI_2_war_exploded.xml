@@ -9,6 +9,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:6.2.2.jre8" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

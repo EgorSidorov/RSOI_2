@@ -4,17 +4,19 @@ public class Startup
 {
         private static String MYSQLCONNECTION = "jdbc:mysql://localhost:3306/test?user=root&password=&useUnicode=true";
         private static String MSSQLCONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=RSOI_02;user=some_user;password=asdfgh";
+        private static String POSTGRESSQLCONNECTION = "jdbc:postgres://zjdesrfelofglf:a598d189e41fa7f4ac01182aa1448ca6e042b5658c5f4061533b4f27f899b8e1@ec2-46-137-75-170.eu-west-1.compute.amazonaws.com:5432/danbtbgklnp8s6";
         private static String MYSQLDRIVER = "com.mysql.jdbc.Driver";
         private static String MSSQLDRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        private static String POSTGRESSQLDRIVER = "org.postgresql.Driver";
 
         static boolean hasInitialized = false;
         
         public static String GetConnectionStr() {
-            return MYSQLCONNECTION;
+            return POSTGRESSQLCONNECTION;
         }
 
         public static String GetDriver() {
-            return MYSQLDRIVER;
+            return POSTGRESSQLDRIVER;
         }
         
         public static void InitializeDB(){

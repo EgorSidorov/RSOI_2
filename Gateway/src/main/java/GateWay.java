@@ -132,7 +132,7 @@ public class GateWay extends HttpServlet {
                 }
                 response.getWriter().write(responseString);
             } else response.getWriter().write(RequestForService(urlString,token));
-        } else response.getWriter().write("You can request for service Account, Calls, Payment, Cross");
+        } else response.getWriter().write("You can request for service Account, Calls, Payment, Cross\n" +Startup.getRestApiCommand());
     }
 
     private String RequestForService(String urlString,String cookie)  throws IOException

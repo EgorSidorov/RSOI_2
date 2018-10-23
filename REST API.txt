@@ -1,37 +1,3 @@
-Login: some_user
-Password: asdfgh
-CREATE SCHEMA Account;
-CREATE SCHEMA Payment;
-CREATE SCHEMA Calls;
-GO
-CREATE TABLE Account.Users
-	(
-	ID int IDENTITY(1,1) PRIMARY KEY,
-	Username varchar(50) NOT NULL,
-	Pssword varchar(50) NOT NULL,
-	Role int
-	);
-CREATE TABLE Account.Roles
-	(
-	ID_Role int IDENTITY(1,1) PRIMARY KEY,
-	Name_Role varchar(50) NOT NULL,
-	);
-
-CREATE TABLE Payment.Pursy
-	(
-	ID_Cash int IDENTITY(1,1) PRIMARY KEY,
-	Cash float,
-	Username varchar(50) NOT NULL
-	);
-
-CREATE TABLE Calls.History
-	(
-	ID_Call int IDENTITY(1,1) PRIMARY KEY,
-	Duration float,
-	Username varchar(50) NOT NULL
-	);
-
-
 http://localhost:8080/?service=Cross&arguments="ADD_CALL"&Duration=20 
 http://localhost:8080/?service=Cross&arguments="ADD_CASH"&Cash=20 
 http://localhost:8080/?service=Cross&arguments="WITHDRAW_CASH"&Cash=20 

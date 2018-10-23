@@ -1,1 +1,1 @@
-eval tomcat7:redeploy
+eval mvn tomcat7:redeploy

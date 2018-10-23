@@ -1,1 +1,1 @@
-eval mvn tomcat7:redeploy -DskipTests=true
+eval mvn сдуфт install -DskipTests=true tomcat7:redeploy

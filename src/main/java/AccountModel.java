@@ -141,7 +141,7 @@ public class AccountModel {
         return success;
     }
 
-    Boolean AddRole(String role)
+    Boolean AddRole(int ID, String role)
     {
             Statement stmtObj = null;
             try {
@@ -151,7 +151,7 @@ public class AccountModel {
             }
             ResultSet resObj = null;
             try {
-                stmtObj.execute("Insert INTO Account.Roles VALUES('"+role+"')");
+                stmtObj.execute("Insert INTO Account.Roles VALUES("+Integer.toString(ID)+",'"+role+"')");
             } catch (SQLException e) {
                 return false;
             }

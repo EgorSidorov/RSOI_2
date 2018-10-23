@@ -46,20 +46,20 @@ public class GateWay extends HttpServlet {
             String duration = request.getParameter("Duration");
             arguments = arguments.substring(1).substring(0,arguments.length()-2);
             arguments = arguments.replaceAll(" amp ","&");
-            String urlString = "http://localhost:8080/"+nameService+"?"+arguments;
+            String urlString = "http://"+Startup.GetGatewayHostPort()+"/"+nameService+"?"+arguments;
             if(nameService.equals("Cross") && arguments.equals("CREATE_USER")){
-                if(RequestForService("http://localhost:8080/account?command=CREATE_USER&Username=" + username + "&Password=" + password+"&Role=" + role,token).contains("Error")) {
+                if(RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=CREATE_USER&Username=" + username + "&Password=" + password+"&Role=" + role,token).contains("Error")) {
                     response.getWriter().write("Error create account");
                     return;
                 }
-                if(RequestForService("http://localhost:8080/payment?command=CREATE_PURSY&Username=" + username,token).contains("Error")){
+                if(RequestForService("http://"+Startup.GetGatewayHostPort()+"/payment?command=CREATE_PURSY&Username=" + username,token).contains("Error")){
                     response.getWriter().write("Error create pursy");
                     return;
                 }
                 response.getWriter().write("Success create account");
             }
             else if(nameService.equals("Cross") && arguments.equals("LOGIN")){
-                String responseString = RequestForService("http://localhost:8080/account?command=LOGIN&Username=" + username + "&Password=" + password,token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=LOGIN&Username=" + username + "&Password=" + password,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error login");
                     return;
@@ -68,12 +68,12 @@ public class GateWay extends HttpServlet {
                 response.getWriter().write("Success login");
             }
             else if(nameService.equals("Cross") && arguments.equals("WITHDRAW_CASH")) {
-                String responseString = RequestForService("http://localhost:8080/account?command=GET_USERNAME",token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://localhost:8080/payment?command=WITHDRAW_CASH&Username="+responseString+"&Cash="+cash,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/payment?command=WITHDRAW_CASH&Username="+responseString+"&Cash="+cash,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error wildcard cash");
                     return;
@@ -81,12 +81,12 @@ public class GateWay extends HttpServlet {
                 response.getWriter().write("Success withdraw cash");
             }
             else if(nameService.equals("Cross") && arguments.equals("ADD_CASH")) {
-                String responseString = RequestForService("http://localhost:8080/account?command=GET_USERNAME",token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://localhost:8080/payment?command=ADD_CASH&Username="+responseString+"&Cash="+cash,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/payment?command=ADD_CASH&Username="+responseString+"&Cash="+cash,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error add cash");
                     return;
@@ -94,12 +94,12 @@ public class GateWay extends HttpServlet {
                 response.getWriter().write("Success add cash");
             }
             else if(nameService.equals("Cross") && arguments.equals("ADD_CALL")) {
-                String responseString = RequestForService("http://localhost:8080/account?command=GET_USERNAME",token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://localhost:8080/calls?command=ADD_CALL&Username="+responseString+"&Duration="+duration,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/calls?command=ADD_CALL&Username="+responseString+"&Duration="+duration,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error add call");
                     return;
@@ -107,12 +107,12 @@ public class GateWay extends HttpServlet {
                 response.getWriter().write("Success add call");
             }
             else if(nameService.equals("Cross") && arguments.equals("SHOW_CASH")) {
-                String responseString = RequestForService("http://localhost:8080/account?command=GET_USERNAME",token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://localhost:8080/payment?command=SHOW_CASH&Username="+responseString,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/payment?command=SHOW_CASH&Username="+responseString,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get cash");
                     return;
@@ -120,12 +120,12 @@ public class GateWay extends HttpServlet {
                 response.getWriter().write(responseString);
             }
             else if(nameService.equals("Cross") && arguments.equals("SHOW_CALL_HISTORY")) {
-                String responseString = RequestForService("http://localhost:8080/account?command=GET_USERNAME",token);
+                String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://localhost:8080/calls?command=SHOW_CALL_HISTORY&Username="+responseString,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/calls?command=SHOW_CALL_HISTORY&Username="+responseString,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get call history");
                     return;

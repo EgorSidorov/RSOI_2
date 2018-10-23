@@ -16,9 +16,9 @@ public class AccountModelTest {
         model.CreateUser("Egor5","qwerty","1");
         model.CreateUser("Egor6","qwerty","1");
         if(!model.GetAllRoles().contains("master")) {
-            model.AddRole("master");
-            model.AddRole("medium");
-            model.AddRole("beginner");
+            model.AddRole(1,"master");
+            model.AddRole(2,"medium");
+            model.AddRole(3,"beginner");
         }
     }
 

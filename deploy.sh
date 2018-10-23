@@ -1,1 +1,1 @@
-eval mvn clean install tomcat7:redeploy
+eval tomcat7:redeploy

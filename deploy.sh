@@ -1,12 +1,4 @@
-cd Account
-. ./deploy.sh
-cd ../
-cd Calls
-. ./deploy.sh
-cd ../
-cd Gateway
-. ./deploy.sh
-cd ../
-cd Payment
-. ./deploy.sh
-cd ../
+bash Account/deploy.sh
+bash Calls/deploy.sh
+bash Gateway/deploy.sh
+bash Payment/deploy.sh

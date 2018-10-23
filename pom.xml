@@ -89,7 +89,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-            <path>/myapp</path>
+            <path>/</path>
             <url>http://194.58.121.174:8080/manager/text</url>
             <username>${mypersonalloginvalue}</username>
             <password>${mypersonalpasswordvalue}</password>

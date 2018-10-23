@@ -6,7 +6,7 @@
   <packaging>war</packaging>
 
   <version>1.0.0</version>
-  <name>SqlServerSample</name>
+  <name>RSOI_LAB2</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -25,22 +25,10 @@
     </dependency>
 
     <dependency>
-      <groupId>com.microsoft.sqlserver</groupId>
-      <artifactId>mssql-jdbc</artifactId>
-      <version>6.2.2.jre8</version>
-    </dependency>
-
-    <dependency>
     	<groupId>mysql</groupId>
     	<artifactId>mysql-connector-java</artifactId>
     	<version>8.0.11</version>
     </dependency>
-
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>42.1.1</version>
-      </dependency>
 
 	<dependency>
     <groupId>javax.servlet</groupId>
@@ -67,18 +55,6 @@
 
 <build>
 <plugins>
-    <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>2.0.6</version>
-        <configuration>
-            <appName>rsoi1_testapp</appName>
-	    <webXml>web\WEB-INF\web.xml</webXml>  
-            <processTypes>
-                <web>java $JAVA_OPTS -cp target/classes:target/dependency/* -cp ./web:target/dependency/* Registration</web>
-            </processTypes>
-        </configuration>
-    </plugin>
  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -115,8 +91,8 @@
         <configuration>
             <path>/myapp</path>
             <url>http://194.58.121.174:8080/manager/text</url>
-            <username>admin</username>
-            <password>admin</password>
+            <username>${mylogin}</username>
+            <password>${mypassword}</password>
             <server>TomcatServerRsoi</server>
             <port>8080</port>
         </configuration>

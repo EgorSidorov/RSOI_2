@@ -1,1 +1,1 @@
-eval mvn clean install tomcat7:redeploy -D
+eval mvn clean install tomcat7:redeploy -Dmypersonallogin=mypersonalloginvalue -Dmypersonalpassword=mypersonalpasswordvalue

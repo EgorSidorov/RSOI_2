@@ -5,41 +5,12 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
            version="3.1">
     <servlet>
-        <servlet-name>AccountName</servlet-name>
-        <servlet-class>Account</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CallsName</servlet-name>
         <servlet-class>Calls</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>PaymentName</servlet-name>
-        <servlet-class>Payment</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GateWayName</servlet-name>
-        <servlet-class>GateWay</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>AccountName</servlet-name>
-        <url-pattern>/account</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CallsName</servlet-name>
-        <url-pattern>/calls</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PaymentName</servlet-name>
-        <url-pattern>/payment</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GateWayName</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <welcome-file-list>
-    <welcome-file>
-    </welcome-file>
-    </welcome-file-list>
 </web-app>

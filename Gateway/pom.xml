@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sqlsamples</groupId>
+  <artifactId>RSOI2_GATEWAY</artifactId>
+  <packaging>war</packaging>
+
+  <version>1.0.0</version>
+  <name>RSOI_LAB2_GATEWAY</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <!-- your existing properties -->
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>8.0.11</version>
+    </dependency>
+
+	<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.0.1</version>
+    <scope>provided</scope>
+	</dependency>
+
+  </dependencies>
+	
+	  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+<build>
+<plugins>
+ <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals><goal>copy</goal></goals>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.github.jsimone</groupId>
+                            <artifactId>webapp-runner</artifactId>
+                            <version>8.5.11.3</version>
+                            <destFileName>webapp-runner.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+    <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+            <path>/</path>
+            <url>http://194.58.121.174:8080/manager/text</url>
+            <username>${mypersonalloginvalue}</username>
+            <password>${mypersonalpasswordvalue}</password>
+            <server>TomcatServerRsoi</server>
+            <port>8080</port>
+        </configuration>
+    </plugin>
+</plugins>
+</build>
+	
+</project>

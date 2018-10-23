@@ -1,3 +1,0 @@
-0:0:0:0:0:0:0:1 - - [23/Oct/2018:07:22:18 +0300] "GET / HTTP/1.1" 200 58 http-bio-8080-exec-1 28
-127.0.0.1 - - [23/Oct/2018:07:22:29 +0300] "GET /account?command=SHOW_ALL_USERS HTTP/1.1" 200 27 http-bio-8080-exec-5 299
-0:0:0:0:0:0:0:1 - - [23/Oct/2018:07:22:29 +0300] "GET /?service=account&arguments=%22command=SHOW_ALL_USERS%22 HTTP/1.1" 200 27 http-bio-8080-exec-3 315

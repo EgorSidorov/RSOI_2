@@ -12,7 +12,7 @@
     <module>Payment</module>
     <module>Gateway</module>
 </modules>
-         
+         <build>
  <plugins>
     <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
@@ -23,4 +23,5 @@
         </configuration>
     </plugin>
 </plugins>
+         </build>
     </project>

@@ -1,5 +1,8 @@
 language: java
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
 
-
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master

@@ -115,8 +115,8 @@
         <configuration>
             <path>/myapp</path>
             <url>http://194.58.121.174:8080/manager/text</url>
-            <username>${mypersonallogin}</username>
-            <password>${mypersonalpassword}</password>
+            <username>admin</username>
+            <password>admin</password>
             <server>TomcatServerRsoi</server>
             <port>8080</port>
         </configuration>

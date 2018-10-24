@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2360147-4662-4f55-bd2a-cbd6e59d3311" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account/src/main/java/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account/src/main/java/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/src/main/java/AccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account/src/main/java/AccountModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Calls/src/main/java/Calls.java" beforeDir="false" afterPath="$PROJECT_DIR$/Calls/src/main/java/Calls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calls/src/main/java/CallsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Calls/src/main/java/CallsModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calls/src/test/java/CallsModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Calls/src/test/java/CallsModelTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Payment/src/main/java/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/main/java/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/src/test/java/PaymentModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/src/test/java/PaymentModelTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Payment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Payment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Payment/src/main/java/Payment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+            <state relative-caret-position="288">
+              <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,8 +75,8 @@
       <file leaf-file-name="Calls.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Calls/src/main/java/Calls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+            <state relative-caret-position="408">
+              <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,8 +87,8 @@
       <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Account/src/main/java/Account.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
+            <state relative-caret-position="407">
+              <caret line="34" column="60" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,7 +108,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaymentModelTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PaymentModelTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Payment/src/test/java/PaymentModelTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
@@ -128,8 +123,8 @@
       <file leaf-file-name="GateWay.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gateway/src/main/java/GateWay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="914">
-              <caret line="179" selection-start-line="179" selection-end-line="179" />
+            <state relative-caret-position="407">
+              <caret line="176" column="28" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -152,11 +147,11 @@
         <option value="$PROJECT_DIR$/Payment/src/main/java/PaymentModel.java" />
         <option value="$PROJECT_DIR$/Calls/src/main/java/CallsModel.java" />
         <option value="$PROJECT_DIR$/Account/src/main/java/AccountModel.java" />
-        <option value="$PROJECT_DIR$/Calls/src/main/java/Calls.java" />
-        <option value="$PROJECT_DIR$/Payment/src/main/java/Payment.java" />
-        <option value="$PROJECT_DIR$/Account/src/main/java/Account.java" />
         <option value="$PROJECT_DIR$/Calls/src/test/java/CallsModelTest.java" />
         <option value="$PROJECT_DIR$/Payment/src/test/java/PaymentModelTest.java" />
+        <option value="$PROJECT_DIR$/Account/src/main/java/Account.java" />
+        <option value="$PROJECT_DIR$/Calls/src/main/java/Calls.java" />
+        <option value="$PROJECT_DIR$/Payment/src/main/java/Payment.java" />
       </list>
     </option>
   </component>
@@ -271,12 +266,12 @@
       <workItem from="1540350344627" duration="1222000" />
       <workItem from="1540371407845" duration="612000" />
       <workItem from="1540378061749" duration="13000" />
-      <workItem from="1540389857788" duration="1526000" />
+      <workItem from="1540389857788" duration="2236000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4060000" />
+    <option name="totallyTimeSpent" value="4770000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1919" height="1040" extended-state="1" />
@@ -456,16 +451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gateway/src/main/java/GateWay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="914">
-          <caret line="179" selection-start-line="179" selection-end-line="179" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -503,36 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Calls/src/main/java/Calls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Payment/src/main/java/Payment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Account/src/main/java/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Calls/src/test/java/CallsModelTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -547,6 +502,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gateway/src/main/java/GateWay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="176" column="28" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Account/src/main/java/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="34" column="60" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calls/src/main/java/Calls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Payment/src/main/java/Payment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

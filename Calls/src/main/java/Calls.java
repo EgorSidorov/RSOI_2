@@ -22,7 +22,7 @@ public class Calls extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CallsModel model = new CallsModel(false);
-        model.SetLogs(request.getRequestURL().toString());
+        model.SetLogs(request.getRequestURL().toString()+"/"+request.getQueryString());
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");

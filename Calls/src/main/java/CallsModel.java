@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +9,11 @@ public class CallsModel {
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
+    Boolean _isTest = false;
 
-    CallsModel()
+    CallsModel(boolean isTest)
     {
+        _isTest = isTest;
         dbStatus = CreateConnection();
     }
 
@@ -20,6 +24,8 @@ public class CallsModel {
 
     Boolean CreateConnection()
     {
+        if(_isTest)
+            return true;
         String db_uri = Startup.GetConnectionStr();
         try {
             Class.forName(Startup.GetDriver());
@@ -42,6 +48,14 @@ public class CallsModel {
         queryStatus = true;
         List<String> CallsList = new ArrayList<>();
         Statement stmtObj = null;
+        if(_isTest) {
+            for(int zz = 0; zz<Startup._CallsTest.size(); zz++)
+                if(Startup._CallsTest.get(zz).getValue().equals(username))
+                    CallsList.add(String.valueOf(Startup._CallsTest.get(zz).getKey()));
+            if(CallsList.isEmpty())
+                queryStatus = false;
+            return CallsList;
+        }
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {
@@ -54,7 +68,7 @@ public class CallsModel {
             resObj = stmtObj.executeQuery(
                     "SELECT Duration, Username " +
                             "FROM Calls.History hs " +
-                            "WHERE hs.Username ='" + username + "' LIMIT " + String.valueOf(numberPage*sizePage) + "," + String.valueOf(sizePage));
+                            "WHERE hs.Username ='" + username + "' LIMIT " + String.valueOf(sizePage) + " OFFSET " + String.valueOf(numberPage*sizePage));
         } catch (SQLException e) {
             CallsList.add(e.getMessage());
             queryStatus = false;
@@ -79,6 +93,10 @@ public class CallsModel {
 
     Boolean AddCall(String duration, String username)
     {
+        if(_isTest) {
+            Startup._CallsTest.add(new Pair<>(Float.valueOf(duration),username));
+            return true;
+        }
         Statement stmtObj = null;
         try {
             stmtObj = connection.createStatement();

@@ -1,15 +1,20 @@
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class PaymentModel {
     Connection connection;
     Boolean dbStatus;
     Boolean queryStatus;
     int sizePage = 2;
+    boolean _isTest = false;
 
-    PaymentModel()
+    PaymentModel(boolean isTest)
     {
+        _isTest = isTest;
         dbStatus = CreateConnection();
     }
 
@@ -25,6 +30,8 @@ public class PaymentModel {
 
     Boolean CreateConnection()
     {
+        if(_isTest)
+            return true;
         String db_uri = Startup.GetConnectionStr();
         try {
             Class.forName(Startup.GetDriver());
@@ -120,6 +127,10 @@ public class PaymentModel {
 
     Boolean CreatePursy(String username)
     {
+        if(_isTest) {
+            Startup._PursysTest.add(new Pair<>(Float.valueOf(0), username));
+            return true;
+        }
         Statement stmtObj = null;
         try {
             stmtObj = connection.createStatement();
@@ -139,6 +150,18 @@ public class PaymentModel {
 
     Boolean AddCash(String cash, String username)
     {
+        if(_isTest) {
+            ListIterator<Pair<Float,String>> iter = Startup._PursysTest.listIterator();
+            while (iter.hasNext())
+            {
+                Pair<Float,String> pair = iter.next();
+                if(pair.getValue().equals(username)) {
+                    iter.set(new Pair<>((pair.getKey() + Float.valueOf(cash)), username));
+                    return true;
+                }
+            }
+            return false;
+        }
         Statement stmtObj = null;
         try {
             stmtObj = connection.createStatement();
@@ -159,6 +182,18 @@ public class PaymentModel {
     Boolean WithdrawCash(String cash, String username)
     {
         Statement stmtObj = null;
+        if(_isTest) {
+            ListIterator<Pair<Float,String>> iter = Startup._PursysTest.listIterator();
+            while (iter.hasNext())
+            {
+                Pair<Float,String> pair = iter.next();
+                if(pair.getValue().equals(username)) {
+                    iter.set(new Pair<>((pair.getKey() - Float.valueOf(cash)), username));
+                    return true;
+                }
+            }
+            return false;
+        }
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {
@@ -180,6 +215,18 @@ public class PaymentModel {
         queryStatus = true;
         Statement stmtObj = null;
         String outputCash = "";
+        if(_isTest) {
+            ListIterator<Pair<Float,String>> iter = Startup._PursysTest.listIterator();
+            while (iter.hasNext())
+            {
+                Pair<Float,String> pair = iter.next();
+                if(pair.getValue().equals(username)) {
+                    return String.valueOf(pair.getKey());
+                }
+            }
+            queryStatus = false;
+            return "";
+        }
         try {
             stmtObj = connection.createStatement();
         } catch (SQLException e) {

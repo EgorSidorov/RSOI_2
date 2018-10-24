@@ -21,7 +21,7 @@ public class Calls extends HttpServlet {
 
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        CallsModel model = new CallsModel();
+        CallsModel model = new CallsModel(false);
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");

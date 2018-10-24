@@ -13,25 +13,25 @@ public class CallsModelTest {
 
     @Test
     public void getDbStatus() throws Exception {
-        CallsModel model = new CallsModel();
+        CallsModel model = new CallsModel(Startup.isTest);
         Assert.assertEquals(true,model.GetDbStatus());
     }
 
     @Test
     public void createConnection() throws Exception {
-        CallsModel model = new CallsModel();
+        CallsModel model = new CallsModel(Startup.isTest);
         Assert.assertEquals(true,model.CreateConnection());
     }
 
     @Test
     public void AddCall() throws Exception {
-        CallsModel model = new CallsModel();
+        CallsModel model = new CallsModel(Startup.isTest);
         Assert.assertEquals(true,model.AddCall("20","Egor30"));
     }
 
     @Test
     public void ShowAllHistory() throws Exception {
-        CallsModel model = new CallsModel();
+        CallsModel model = new CallsModel(Startup.isTest);
 	model.AddCall("20","Egor31");
         Assert.assertEquals(false,model.ShowCallHistory("Egor31",0).isEmpty());
     }

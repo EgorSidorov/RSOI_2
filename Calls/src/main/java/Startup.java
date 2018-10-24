@@ -1,9 +1,16 @@
+import javafx.util.Pair;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Startup
 {
         private static String MYSQLCONNECTION = "jdbc:mysql://194.58.121.174:3306?user=remoteuser&password=123456azsxdc&autoReconnect=true&useSSL=false";
         private static String MYSQLDRIVER = "com.mysql.cj.jdbc.Driver";
+        static List<Pair<Float, String>> _CallsTest = Collections.synchronizedList(new ArrayList<>());
+        public static Boolean isTest = true;
         
         public static String GetConnectionStr() {
             return MYSQLCONNECTION;

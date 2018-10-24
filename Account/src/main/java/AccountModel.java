@@ -96,7 +96,7 @@ public class AccountModel {
                         "SELECT Username,  Name_Role " +
                                 "FROM Account.Info us " +
                                 "JOIN Account.Roles rl ON(us.Role=rl.ID_Role) " +
-                                "WHERE us.ID BETWEEN " + String.valueOf(numberPage * sizePage + 1) + " AND " + String.valueOf((numberPage + 1) * sizePage));
+                                "LIMIT " + String.valueOf(numberPage * sizePage) + "," + String.valueOf(sizePage));
             } catch (SQLException e) {
                 queryStatus = false;
                 return UserNames;

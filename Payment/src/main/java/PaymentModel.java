@@ -170,7 +170,7 @@ public class PaymentModel {
             return false;
         }
         try {
-            stmtObj.execute("INSERT INTO Payment.Logger (str) VALUES('"logString"')");
+            stmtObj.execute("INSERT INTO Payment.Logger (str) VALUES('"+logString+"')");
         } catch (SQLException e) {
             return false;
         }

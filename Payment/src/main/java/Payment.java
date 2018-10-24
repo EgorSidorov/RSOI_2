@@ -22,10 +22,12 @@ public class Payment extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         PaymentModel model = new PaymentModel(false);
+        model.SetLogs(request.getRequestURI());
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");
             String cash = request.getParameter("Cash");
+            String page = request.getParameter("page");
             String username = request.getParameter("Username");
             if(type_command != null)
             {
@@ -58,6 +60,12 @@ public class Payment extends HttpServlet {
                         else response.getWriter().write("Error create pursy");
                     }
                     else response.getWriter().write("Error.You should input First_Name, Last_Name_Name, Role");
+                }
+                else if( type_command.equals("SHOW_LOGS") )
+                {
+                        if (page != null)
+                            response.getWriter().write(String.valueOf(model.GetLogs(Integer.parseInt(page))));
+                        else response.getWriter().write(String.valueOf(model.GetLogs(0)));
                 }
                 else if( type_command.equals("SHOW_CASH"))
                 {

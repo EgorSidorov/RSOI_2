@@ -54,7 +54,7 @@ public class CallsModel {
             resObj = stmtObj.executeQuery(
                     "SELECT Duration, Username " +
                             "FROM Calls.History hs " +
-                            "WHERE hs.Username ='" + username + "' AND hs.ID_Call BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
+                            "WHERE hs.Username ='" + username + "' LIMIT " + String.valueOf(numberPage*sizePage) + "," + String.valueOf(sizePage));
         } catch (SQLException e) {
             CallsList.add(e.getMessage());
             queryStatus = false;

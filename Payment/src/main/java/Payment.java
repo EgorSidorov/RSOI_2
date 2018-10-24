@@ -22,7 +22,7 @@ public class Payment extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         PaymentModel model = new PaymentModel(false);
-        model.SetLogs(request.getRequestURL());
+        model.SetLogs(request.getRequestURL().toString());
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");

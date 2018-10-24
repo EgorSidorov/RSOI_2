@@ -32,7 +32,7 @@ public class Account extends HttpServlet {
                 }
             }
         }
-        model.SetLogs(request.getRequestURL()+" token:"+token);
+        model.SetLogs(request.getRequestURL().toString()+" token:"+token);
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");

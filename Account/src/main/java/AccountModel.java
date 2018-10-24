@@ -17,11 +17,11 @@ public class AccountModel {
 
     AccountModel(Boolean isTest)
     {
+        _isTest = isTest;
         if(!isTest)
             dbStatus = CreateConnection();
         else
             dbStatus = true;
-        _isTest = isTest;
     }
 
     Boolean GetDbStatus()

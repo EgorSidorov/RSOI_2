@@ -12,7 +12,7 @@ public class AccountModel {
     Boolean dbStatus;
     Boolean queryStatus;
     EasyAuth auth;
-    Boolean _isTest;
+    Boolean _isTest = false;
     int sizePage = 2;
 
     AccountModel(Boolean isTest)

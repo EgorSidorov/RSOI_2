@@ -134,7 +134,7 @@ public class GateWay extends HttpServlet {
                 }
                 response.getWriter().write(responseString);
             }
-            else if(nameService.equals("Cross") && arguments.equals("SHOW_CALL_HISTORY")) {
+            else if(nameService.equals("Cross") && arguments.contains("SHOW_CALL_HISTORY")) {
                 String responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/account?command=GET_USERNAME",token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get username");

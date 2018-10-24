@@ -362,6 +362,61 @@ public class AccountModel {
         queryStatus = false;
         return "";
     }
+    
+    List<String> GetLogs(int numberPage)
+    {
+        Statement stmtObj = null;
+        queryStatus = true;
+        List<String> Logs = new ArrayList<>();
+        try {
+            stmtObj = connection.createStatement();
+        } catch (SQLException e) {
+            Logs.add(e.getMessage());
+            queryStatus = false;
+            return Logs;
+        }
+        ResultSet resObj = null;
+        try {
+            resObj = stmtObj.executeQuery("SELECT str FROM Payment.Logger LIMIT "+String.valueOf(sizePage)+" OFFSET "+String.valueOf(numberPage));
+        } catch (SQLException e) {
+            Logs.add(e.getMessage());
+            queryStatus = false;
+            return Logs;
+        }
+        try {
+            while(resObj.next()) {
+                Logs.add(resObj.getString("str"));;
+            }
+        } catch (SQLException e) {
+            Logs.clear();
+            Logs.add(e.getMessage());
+            queryStatus = false;
+            return Logs;
+        }
+        try {
+            stmtObj.close();
+        } catch (SQLException e) {queryStatus = false;}
+        return Logs;
+    }
+    
+    Boolean SetLogs(String logString)
+    {
+        Statement stmtObj = null;
+        try {
+            stmtObj = connection.createStatement();
+        } catch (SQLException e) {
+            return false;
+        }
+        try {
+            stmtObj.execute("INSERT INTO Payment.Logger (str) VALUES('"logString"')");
+        } catch (SQLException e) {
+            return false;
+        }
+        try {
+            stmtObj.close();
+        } catch (SQLException e) {}
+        return true;
+    }
 
 
 }

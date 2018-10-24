@@ -55,6 +55,9 @@ public class GateWay extends HttpServlet {
             String password = request.getParameter("Password");
             String cash = request.getParameter("Cash");
             String role = request.getParameter("Role");
+            String page = request.getParameter("page");
+            if(page == null)
+                page = "0";
             String duration = request.getParameter("Duration");
             arguments = arguments.substring(1).substring(0,arguments.length()-2);
             arguments = arguments.replaceAll(" amp ","&");
@@ -137,7 +140,7 @@ public class GateWay extends HttpServlet {
                     response.getWriter().write("Error get username");
                     return;
                 }
-                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/calls?command=SHOW_CALL_HISTORY&Username="+responseString,token);
+                responseString = RequestForService("http://"+Startup.GetGatewayHostPort()+"/calls?command=SHOW_CALL_HISTORY&Username="+responseString+"&page="+page,token);
                 if(responseString.contains("Error")) {
                     response.getWriter().write("Error get call history");
                     return;

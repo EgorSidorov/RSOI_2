@@ -1,4 +1,4 @@
-import javax.servlet.ServletException;
+﻿import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +26,18 @@ public class GateWay extends HttpServlet {
 
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        if(request.getRequestURI().startsWith("/account/") || request.getRequestURI().equals("/account")) {
+            response.getWriter().write("Error Service account does not respond");
+            return;
+        }
+        if(request.getRequestURI().startsWith("/payment/") || request.getRequestURI().equals("/payment")) {
+            response.getWriter().write("Error Service payment does not respond");
+            return;
+        }
+        if(request.getRequestURI().startsWith("/calls/") || request.getRequestURI().equals("/calls")) {
+            response.getWriter().write("Error Service calls does not respond");
+            return;
+        }
         String nameService = request.getParameter("service");
         String token = "";
         Cookie[] cookies = request.getCookies();
@@ -132,15 +144,26 @@ public class GateWay extends HttpServlet {
                 }
                 response.getWriter().write(responseString);
             } else response.getWriter().write(RequestForService(urlString,token));
-        } else response.getWriter().write("You can request for service Account, Calls, Payment, Cross\n" +Startup.getRestApiCommand());
+        } else response.getWriter().write("You can request for service Account, Calls, Payment, Cross\n\n" +Startup.getRestApiCommand());
     }
 
     private String RequestForService(String urlString,String cookie)  throws IOException
     {
-        URLConnection connection = new URL(urlString).openConnection();
-        connection.addRequestProperty("Cookie","Token="+cookie);
-        InputStream is = connection.getInputStream();
-        InputStreamReader reader = new InputStreamReader(is);
+        InputStream is;
+        InputStreamReader reader;
+        try {
+            URLConnection connection = new URL(urlString).openConnection();
+            connection.setConnectTimeout(Startup.GetTimeout());
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.addRequestProperty("Cookie", "Token=" + cookie);
+            is = connection.getInputStream();
+            reader = new InputStreamReader(is);
+        }
+        catch (Exception e)
+        {
+            return "Error:"+e.getMessage();
+        }
         char[] buffer = new char[1024];
         int rc;
 

@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +9,14 @@ public class AccountModel {
     Boolean dbStatus;
     Boolean queryStatus;
     EasyAuth auth;
+    Boolean _isTest;
     int sizePage = 2;
 
-    AccountModel()
+    AccountModel(Boolean isTest)
     {
-        dbStatus = CreateConnection();
+        if(!isTest)
+            dbStatus = CreateConnection();
+        _isTest = isTest;
     }
 
     Boolean GetDbStatus()
@@ -27,21 +32,25 @@ public class AccountModel {
 
     Boolean CreateConnection()
     {
-        String db_uri = Startup.GetConnectionStr();
-        try {
-            Class.forName(Startup.GetDriver());
-        } catch (ClassNotFoundException e) {
-            System.out.print("\nError find MSSQL driver\n");
-            return false;
+        if(_isTest)
+            return true;
+        else {
+            String db_uri = Startup.GetConnectionStr();
+            try {
+                Class.forName(Startup.GetDriver());
+            } catch (ClassNotFoundException e) {
+                System.out.print("\nError find MSSQL driver\n");
+                return false;
+            }
+            try {
+                connection = DriverManager.getConnection(db_uri);
+            } catch (SQLException e) {
+                System.out.print("\nError get connection " + e.getMessage() + "\n");
+                return false;
+            }
+            auth = new EasyAuth(db_uri, "Account.Info", "Username", "Password", "Cookie");
+            return true;
         }
-        try {
-            connection = DriverManager.getConnection(db_uri);
-        } catch (SQLException e) {
-            System.out.print("\nError get connection "+e.getMessage() + "\n");
-            return false;
-        }
-        auth = new EasyAuth(db_uri,"Account.Info","Username","Password","Cookie");
-        return true;
     }
 
     List<String> GetUserNames(String token, int numberPage)
@@ -52,36 +61,47 @@ public class AccountModel {
             queryStatus = false;
             return UserNames;
         }
-        Statement stmtObj = null;
-        try {
-            stmtObj = connection.createStatement();
-        } catch (SQLException e) {
-            queryStatus = false;
+        if(_isTest) {
+            UserNames.add("Egor");
+            UserNames.add("Egor2");
+            UserNames.add("Egor3");
+            UserNames.add("Egor4");
+            UserNames.add("Egor5");
+            UserNames.add("Egor6");
             return UserNames;
         }
-        ResultSet resObj = null;
-        try {
-            resObj = stmtObj.executeQuery(
-                            "SELECT Username,  Name_Role " +
-                            "FROM Account.Info us " +
-                            "JOIN Account.Roles rl ON(us.Role=rl.ID_Role) " +
-                            "WHERE us.ID BETWEEN " + String.valueOf(numberPage*sizePage+1) + " AND " + String.valueOf((numberPage+1)*sizePage));
-        } catch (SQLException e) {
-            queryStatus = false;
-            return UserNames;
-        }
-        try {
-            while (resObj.next()) {
-                UserNames.add(resObj.getString("Username") + ":" +resObj.getString("Name_Role"));
+        else {
+            Statement stmtObj = null;
+            try {
+                stmtObj = connection.createStatement();
+            } catch (SQLException e) {
+                queryStatus = false;
+                return UserNames;
             }
-        } catch (SQLException e) {
-            queryStatus = false;
-            return UserNames;
+            ResultSet resObj = null;
+            try {
+                resObj = stmtObj.executeQuery(
+                        "SELECT Username,  Name_Role " +
+                                "FROM Account.Info us " +
+                                "JOIN Account.Roles rl ON(us.Role=rl.ID_Role) " +
+                                "WHERE us.ID BETWEEN " + String.valueOf(numberPage * sizePage + 1) + " AND " + String.valueOf((numberPage + 1) * sizePage));
+            } catch (SQLException e) {
+                queryStatus = false;
+                return UserNames;
+            }
+            try {
+                while (resObj.next()) {
+                    UserNames.add(resObj.getString("Username") + ":" + resObj.getString("Name_Role"));
+                }
+            } catch (SQLException e) {
+                queryStatus = false;
+                return UserNames;
+            }
+            try {
+                stmtObj.close();
+            } catch (SQLException e) {
+            }
         }
-        try {
-            stmtObj.close();
-        } catch (SQLException e) {}
-
         return UserNames;
     }
 
@@ -90,35 +110,43 @@ public class AccountModel {
         Statement stmtObj = null;
         queryStatus = true;
         List<String> Roles = new ArrayList<>();
-        try {
-            stmtObj = connection.createStatement();
-        } catch (SQLException e) {
-            Roles.add(e.getMessage());
-            queryStatus = false;
+        if(_isTest) {
+            for(int zz = 0 ; zz < Startup.RolesTest.size(); zz++)
+                Roles.add(Startup.RolesTest.get(zz).getValue());
             return Roles;
         }
-        ResultSet resObj = null;
-        try {
-            resObj = stmtObj.executeQuery("SELECT Name_Role FROM Account.Roles");
-        } catch (SQLException e) {
-            Roles.add(e.getMessage());
-            queryStatus = false;
-            return Roles;
-        }
-        try {
-            while(resObj.next()) {
-                Roles.add(resObj.getString("Name_Role"));
+        else {
+            try {
+                stmtObj = connection.createStatement();
+            } catch (SQLException e) {
+                Roles.add(e.getMessage());
+                queryStatus = false;
+                return Roles;
             }
-        } catch (SQLException e) {
-            Roles.clear();
-            Roles.add(e.getMessage());
-            queryStatus = false;
+            ResultSet resObj = null;
+            try {
+                resObj = stmtObj.executeQuery("SELECT Name_Role FROM Account.Roles");
+            } catch (SQLException e) {
+                Roles.add(e.getMessage());
+                queryStatus = false;
+                return Roles;
+            }
+            try {
+                while (resObj.next()) {
+                    Roles.add(resObj.getString("Name_Role"));
+                }
+            } catch (SQLException e) {
+                Roles.clear();
+                Roles.add(e.getMessage());
+                queryStatus = false;
+                return Roles;
+            }
+            try {
+                stmtObj.close();
+            } catch (SQLException e) {
+            }
             return Roles;
         }
-        try {
-            stmtObj.close();
-        } catch (SQLException e) {}
-        return Roles;
     }
 
     Boolean CreateUser(String username, String password,String role)
@@ -143,6 +171,11 @@ public class AccountModel {
 
     Boolean AddRole(int ID, String role)
     {
+        if(_isTest) {
+            Pair<Integer,String> pair = new Pair<>(ID,role);
+            Startup._RolesTest.add(pair);
+        }
+        else {
             Statement stmtObj = null;
             try {
                 stmtObj = connection.createStatement();
@@ -151,22 +184,32 @@ public class AccountModel {
             }
             ResultSet resObj = null;
             try {
-                stmtObj.execute("Insert INTO Account.Roles VALUES("+Integer.toString(ID)+",'"+role+"')");
+                stmtObj.execute("Insert INTO Account.Roles VALUES(" + Integer.toString(ID) + ",'" + role + "')");
             } catch (SQLException e) {
                 return false;
             }
+        }
         return true;
     }
 
     String Login(String username, String password)
     {
         queryStatus = true;
-        String authCookie = auth.LogIn(username,password);
-        if (auth.GetQueryStatus())
-            return authCookie;
+        if(_isTest) {
+            Pair<String,String> pair = new Pair<>(username,password);
+            if(Startup._UserNamesTest.contains(pair))
+                return "some_token";
+            else return "";
+        }
         else {
-            queryStatus = false;
-            return "";}
+            String authCookie = auth.LogIn(username, password);
+            if (auth.GetQueryStatus())
+                return authCookie;
+            else {
+                queryStatus = false;
+                return "";
+            }
+        }
     }
 
     Boolean Logout(String token)
@@ -185,13 +228,19 @@ public class AccountModel {
     String GetUsername(String token)
     {
         queryStatus = true;
-        String username = auth.GetUserName(token);
-        if (auth.GetQueryStatus()) {
-            return username;
+        if(_isTest) {
+            if(Startup._UserTokenTest.in)
+                return "some_token";
+            else return "";
         }
         else {
-            queryStatus = false;
-            return "";
+            String username = auth.GetUserName(token);
+            if (auth.GetQueryStatus()) {
+                return username;
+            } else {
+                queryStatus = false;
+                return "";
+            }
         }
     }
 

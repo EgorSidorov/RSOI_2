@@ -22,7 +22,7 @@ public class Account extends HttpServlet {
 
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        AccountModel model = new AccountModel();
+        AccountModel model = new AccountModel(false);
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");

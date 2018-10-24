@@ -15,27 +15,6 @@ public class EasyAuth {
     private String  _lastRequest = "";
     private ResultSet resObj;
 
-    public Boolean CreateIfNotExistsTable()
-    {
-        if(!_dbStatus)
-        {
-            _errorMessage = "You are not connected for DB";
-            return false;
-        }
-        Statement stmtObj = RequestDB("IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='" +_tableName + "' and xtype='U') " +
-                "CREATE TABLE " + _tableName + "(" +
-                _nameFieldUserName + " varchar(50) NOT NULL," +
-                _nameFieldPassword + " varchar(50) NOT NULL," +
-                _nameFieldToken + " varchar(50) NOT NULL)",false);
-        if (stmtObj != null) {
-            try {
-                stmtObj.close();
-            } catch (SQLException e) {
-            }
-        }
-        return GetQueryStatus();
-    }
-
     public EasyAuth(String stringConnection, String tableName, String nameFieldUserName, String nameFieldPassword, String nameFieldToken)
     {
         _stringConnection = stringConnection;

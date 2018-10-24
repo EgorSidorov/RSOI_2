@@ -1,22 +1,28 @@
+import javafx.util.Pair;
+
 import java.sql.*;
+import java.util.List;
 
 public class Startup
 {
         private static String MYSQLCONNECTION = "jdbc:mysql://194.58.121.174:3306?user=remoteuser&password=123456azsxdc&autoReconnect=true&useSSL=false";
         private static String MYSQLDRIVER = "com.mysql.cj.jdbc.Driver";
-        private static String gatewayHostPort = "194.58.121.174:8080";
+        private static Boolean isTest = true;
+        static List<Pair<Integer, String>> _RolesTest;
+        static List<Pair<String, String>> _UserNamesTest;
+        static List<Pair<String, String>> _UserTokenTest;
         
         public static String GetConnectionStr() {
             return MYSQLCONNECTION;
         }
 
-        public static String GetGatewayHostPort() {
-            return gatewayHostPort;
-        }
-
         public static String GetDriver() {
             return MYSQLDRIVER;
         }
+
+        public static Boolean isTest() {
+    return isTest;
+}
         
         public static void InitializeDB(){
             Connection connection = null;

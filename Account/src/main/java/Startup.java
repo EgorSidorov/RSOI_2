@@ -9,7 +9,7 @@ public class Startup
 {
         private static String MYSQLCONNECTION = "jdbc:mysql://194.58.121.174:3306?user=remoteuser&password=123456azsxdc&autoReconnect=true&useSSL=false";
         private static String MYSQLDRIVER = "com.mysql.cj.jdbc.Driver";
-        private static Boolean isTest = true;
+        public static Boolean isTest = true;
         static List<Pair<Integer, String>> _RolesTest = Collections.synchronizedList(new ArrayList<>());
         static List<Pair<String, String>> _UserNamesPasswordTest = Collections.synchronizedList(new ArrayList<>());
         static List<Pair<String, String>> _UserNamesTokenTest = Collections.synchronizedList(new ArrayList<>());

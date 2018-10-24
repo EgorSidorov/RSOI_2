@@ -16,6 +16,8 @@ public class AccountModel {
     {
         if(!isTest)
             dbStatus = CreateConnection();
+        else 
+            dbStatus = true;
         _isTest = isTest;
     }
 

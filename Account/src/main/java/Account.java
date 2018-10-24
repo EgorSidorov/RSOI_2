@@ -23,6 +23,7 @@ public class Account extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         AccountModel model = new AccountModel(false);
+        model.SetLogs(request.getRequestURI());
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");
@@ -106,6 +107,14 @@ public class Account extends HttpServlet {
                         if (page != null)
                             response.getWriter().write(String.valueOf(model.GetUserNames(token, Integer.parseInt(page))));
                         else response.getWriter().write(String.valueOf(model.GetUserNames(token, 0)));
+                    } else response.getWriter().write("Error.Token is empty");
+                }
+                else if( type_command.equals("SHOW_LOGS") )
+                {
+                    if(token != null) {
+                        if (page != null)
+                            response.getWriter().write(String.valueOf(model.GetLogs(Integer.parseInt(page))));
+                        else response.getWriter().write(String.valueOf(model.GetLogs(0)));
                     } else response.getWriter().write("Error.Token is empty");
                 }
                 else if( type_command.equals("SHOW_ALL_ROLES") )

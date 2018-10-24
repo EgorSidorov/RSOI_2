@@ -22,6 +22,7 @@ public class Calls extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CallsModel model = new CallsModel(false);
+        model.SetLogs(request.getRequestURI());
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");
@@ -45,6 +46,12 @@ public class Calls extends HttpServlet {
                     if(page != null)
                         response.getWriter().write(String.valueOf(model.ShowCallHistory(username,Integer.parseInt(page))));
                     else response.getWriter().write(String.valueOf(model.ShowCallHistory(username,0)));
+                }
+                else if( type_command.equals("SHOW_LOGS") )
+                {
+                        if (page != null)
+                            response.getWriter().write(String.valueOf(model.GetLogs(Integer.parseInt(page))));
+                        else response.getWriter().write(String.valueOf(model.GetLogs(0)));
                 }
                 else response.getWriter().write("Error.Unknown command");
             }

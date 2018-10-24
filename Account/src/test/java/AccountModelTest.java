@@ -31,6 +31,11 @@ public class AccountModelTest {
             model.AddRole(3,"beginner");
         }
     }
+    
+    @AfterClass
+    public static void EndTest() {
+        Startup.isTest = false;
+    }
 
     @Test
     public void getDbStatus() throws Exception {

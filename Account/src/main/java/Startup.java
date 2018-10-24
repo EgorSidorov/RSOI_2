@@ -9,8 +9,9 @@ public class Startup
         private static String MYSQLDRIVER = "com.mysql.cj.jdbc.Driver";
         private static Boolean isTest = true;
         static List<Pair<Integer, String>> _RolesTest;
-        static List<Pair<String, String>> _UserNamesTest;
-        static List<Pair<String, String>> _UserTokenTest;
+        static List<Pair<String, String>> _UserNamesPasswordTest;
+        static List<Pair<String, String>> _UserNamesTokenTest;
+	static List<Pair<String, Integer>> _UserNamesRoleTest;
         
         public static String GetConnectionStr() {
             return MYSQLCONNECTION;

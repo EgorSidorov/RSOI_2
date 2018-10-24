@@ -377,7 +377,7 @@ public class AccountModel {
         }
         ResultSet resObj = null;
         try {
-            resObj = stmtObj.executeQuery("SELECT str FROM Payment.Logger LIMIT "+String.valueOf(sizePage)+" OFFSET "+String.valueOf(numberPage));
+            resObj = stmtObj.executeQuery("SELECT str FROM Account.Logger LIMIT "+String.valueOf(sizePage)+" OFFSET "+String.valueOf(numberPage));
         } catch (SQLException e) {
             Logs.add(e.getMessage());
             queryStatus = false;

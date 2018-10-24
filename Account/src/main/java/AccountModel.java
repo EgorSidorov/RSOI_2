@@ -408,7 +408,7 @@ public class AccountModel {
             return false;
         }
         try {
-            stmtObj.execute("INSERT INTO Payment.Logger (str) VALUES('"+logString+"')");
+            stmtObj.execute("INSERT INTO Account.Logger (str) VALUES('"+logString+"')");
         } catch (SQLException e) {
             return false;
         }

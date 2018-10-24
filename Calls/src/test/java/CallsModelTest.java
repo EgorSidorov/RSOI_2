@@ -8,7 +8,8 @@ public class CallsModelTest {
 
     @BeforeClass
     public static void BeforeTest(){
-        Startup.InitializeDB();
+        if(!Startup.isTest)
+            Startup.InitializeDB();
     }
 
     @Test

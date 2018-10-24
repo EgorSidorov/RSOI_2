@@ -159,7 +159,7 @@ public class CallsModel {
             return false;
         }
         try {
-            stmtObj.execute("INSERT INTO Payment.Logger (str) VALUES('"+logString+"')");
+            stmtObj.execute("INSERT INTO Calls.Logger (str) VALUES('"+logString+"')");
         } catch (SQLException e) {
             return false;
         }

@@ -23,7 +23,16 @@ public class Account extends HttpServlet {
     private void RequestGetPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         AccountModel model = new AccountModel(false);
-        model.SetLogs(request.getRequestURI());
+        String token = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("Token")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+        model.SetLogs(request.getRequestURL()+" token:"+token);
         if(model.GetDbStatus())
         {
             String type_command = request.getParameter("command");
@@ -32,15 +41,6 @@ public class Account extends HttpServlet {
                 String username = request.getParameter("Username");
                 String password = request.getParameter("Password");
                 String role = request.getParameter("Role");
-                String token = "";
-                Cookie[] cookies = request.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("Token")) {
-                            token = cookie.getValue();
-                        }
-                    }
-                }
                 String page = request.getParameter("page");
                 if( type_command.equals("CREATE_USER"))
                 {

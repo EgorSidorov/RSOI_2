@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.BeforeClass;
@@ -17,6 +18,13 @@ public class AccountModelTest {
         model.CreateUser("Egor4","qwerty","1");
         model.CreateUser("Egor5","qwerty","1");
         model.CreateUser("Egor6","qwerty","1");
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor","master"));
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor2","master"));
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor3","master"));
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor4","master"));
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor5","master"));
+        Startup._UserNamesRoleTest.add(new Pair<>("Egor6","master"));
+
         if(!model.GetAllRoles().contains("master")) {
             model.AddRole(1,"master");
             model.AddRole(2,"medium");

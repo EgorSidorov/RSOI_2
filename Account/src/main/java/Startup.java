@@ -1,6 +1,8 @@
 import javafx.util.Pair;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Startup
@@ -8,10 +10,10 @@ public class Startup
         private static String MYSQLCONNECTION = "jdbc:mysql://194.58.121.174:3306?user=remoteuser&password=123456azsxdc&autoReconnect=true&useSSL=false";
         private static String MYSQLDRIVER = "com.mysql.cj.jdbc.Driver";
         private static Boolean isTest = true;
-        static List<Pair<Integer, String>> _RolesTest;
-        static List<Pair<String, String>> _UserNamesPasswordTest;
-        static List<Pair<String, String>> _UserNamesTokenTest;
-	static List<Pair<String, Integer>> _UserNamesRoleTest;
+        static List<Pair<Integer, String>> _RolesTest = Collections.synchronizedList(new ArrayList<>());
+        static List<Pair<String, String>> _UserNamesPasswordTest = Collections.synchronizedList(new ArrayList<>());
+        static List<Pair<String, String>> _UserNamesTokenTest = Collections.synchronizedList(new ArrayList<>());
+	    static List<Pair<String, String>> _UserNamesRoleTest = Collections.synchronizedList(new ArrayList<>());
         
         public static String GetConnectionStr() {
             return MYSQLCONNECTION;

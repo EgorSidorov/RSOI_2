@@ -7,9 +7,7 @@ env:
 
 deploy:
   provider: script
-  script: 
-    -bash ./deploy.sh
-    -mvn cobertura:cobertura
+  script: bash ./deploy.sh
   on:
     branch: master
     

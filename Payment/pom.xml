@@ -67,18 +67,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
- <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>cobertura-maven-plugin</artifactId>
-    <version>2.7</version>
-    <configuration>
-        <formats>
-            <format>html</format>
-            <format>xml</format>
-        </formats>
-        <check />
-    </configuration>
-</plugin>
 	        <plugin>
 	          <groupId>org.apache.tomcat.maven</groupId>
 	          <artifactId>tomcat7-maven-plugin</artifactId>
@@ -92,6 +80,18 @@
 				  <port>8080</port>
 			   </configuration>
 	        </plugin>
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>cobertura-maven-plugin</artifactId>
+    <version>2.7</version>
+    <configuration>
+        <formats>
+            <format>html</format>
+            <format>xml</format>
+        </formats>
+        <check />
+    </configuration>
+    </plugin>
 		</plugins>
 	</build>
 

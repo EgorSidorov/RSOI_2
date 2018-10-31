@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="RSOI_2" />
+        <module name="deploying-spring-boot-as-war-on-tomcat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="RSOI_2" target="1.8" />
+      <module name="deploying-spring-boot-as-war-on-tomcat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

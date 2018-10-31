@@ -6,6 +6,7 @@ import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,24 +26,111 @@ public class GatewayController {
 										  @RequestParam(name="password", required=false, defaultValue= "") String password,
 										  Model model,
 										  HttpServletResponse response) throws IOException, ParseException {
-		if(!username.isEmpty() && !password.isEmpty())
+		if(!username.isEmpty() && !password.isEmpty() && !username.contains(" ") && !password.contains(" "))
 		{
-			boolean status1 = false;
 			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/Login?username="+username+"&password="+password,"none");
 			if (!responseStr1.contains("Error:")) {
 				JSONParser parser = new JSONParser();
 				JSONObject userJson = (JSONObject) parser.parse(responseStr1);
-				if(userJson.get("Status").equals("Success")) {
+				if(userJson.get("Status").toString().equals("Success")) {
 					response.addCookie(new Cookie("Token", userJson.get("Cookie").toString()));
-					status1 = true;
+					model.addAttribute("name","Success");
+				}
+				else {
+					model.addAttribute("name","Error login");
+					response.setStatus(401);
 				}
 			}
 			else {
-				model.addAttribute("name", "Service is not responsed");
+				model.addAttribute("name", "Error login");
 				response.setStatus(500);
 			}
 
 
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Show_Calls")
+	public String ShowCalls(
+						@RequestParam(name="page", required=false, defaultValue= "") String page,
+						@CookieValue(name="Token", defaultValue= "") String token,
+						Model model,
+						HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" ") && !page.contains(" "))
+		{
+			boolean status1 = false;
+			boolean status2 = false;
+			JSONObject userJson = new JSONObject();
+			String username = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/UserInfo",token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.get("IsLogged").toString().equals("true")) {
+					username = userJson.get("username").toString();
+					status1 = true;
+				}
+			}
+			if(status1) {
+				String responseStr2 = RequestForService(Startup.GetGatewayHostPort() + "/service/calls/Show?username=" + username+"&page="+page, "none");
+				if (!responseStr2.contains("Error:")) {
+					JSONParser parser = new JSONParser();
+					userJson = (JSONObject) parser.parse(responseStr2);
+					if (userJson.get("Status").toString().equals("Success")) {
+						status2 = true;
+					}
+				}
+			}
+			if(status2)
+				model.addAttribute("name",userJson.get("History"));
+			else
+				model.addAttribute("name","Error token");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Show_Cash")
+	public String ShowCash(@CookieValue(name="Token", defaultValue= "") String token,
+						Model model,
+						HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" "))
+		{
+			boolean status1 = false;
+			boolean status2 = false;
+			JSONObject userJson = new JSONObject();
+			String username = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/UserInfo",token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.get("IsLogged").toString().equals("true")) {
+					username = userJson.get("username").toString();
+					status1 = true;
+				}
+			}
+			if(status1) {
+				String responseStr2 = RequestForService(Startup.GetGatewayHostPort() + "/service/payment/Show_cash?username=" + username, "none");
+				if (!responseStr2.contains("Error:")) {
+					JSONParser parser = new JSONParser();
+					userJson = (JSONObject) parser.parse(responseStr2);
+					if (userJson.get("Status").equals("Success")) {
+						status2 = true;
+					}
+				}
+			}
+			if(status2)
+				model.addAttribute("name",userJson.getAsString("cash"));
+			else
+				model.addAttribute("name","Error token");
 		}
 		else {
 			model.addAttribute("name","Error parameters");
@@ -57,10 +145,10 @@ public class GatewayController {
 						@RequestParam(name="role", required=false, defaultValue= "") String role,
 						Model model,
 						HttpServletResponse response) throws IOException, ParseException {
-		if(!username.isEmpty() && !password.isEmpty())
+		if(!username.isEmpty() && !password.isEmpty() && !username.contains(" ") && !password.contains(" "))
 		{
 			boolean status1 = false;
-			boolean status2 = true;
+			boolean status2 = false;
 			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/Create?username="+username+"&password="+password+"&role="+role,"none");
 			if (!responseStr1.contains("Error:")) {
 				JSONParser parser = new JSONParser();
@@ -70,19 +158,18 @@ public class GatewayController {
 					status1 = true;
 				}
 			}
-			String responseStr2 = RequestForService(Startup.GetGatewayHostPort()+"/service/payment/New_pursy?username="+username,"none");
+			String responseStr2 = RequestForService(Startup.GetGatewayHostPort()+"/service/payment/New_purse?username="+username,"none");
 			if (!responseStr2.contains("Error:")) {
 				JSONParser parser = new JSONParser();
 				JSONObject userJson = (JSONObject) parser.parse(responseStr2);
 				if(userJson.get("Status").equals("Success")) {
-					response.addCookie(new Cookie("Token", userJson.get("Cookie").toString()));
 					status2 = true;
 				}
 			}
 			if(status1 && status2)
 				model.addAttribute("name","Success");
 			else
-				model.addAttribute("name","Error create user");
+				model.addAttribute("name","Error create user or purse");
 		}
 		else {
 			model.addAttribute("name","Error parameters");
@@ -90,6 +177,227 @@ public class GatewayController {
 		}
 		return "greeting";
 	}
+
+	@GetMapping("/Add_Cash")
+	public String AddCash(@CookieValue(name="Token", defaultValue= "") String token,
+						  @RequestParam(name="cash", required=false, defaultValue= "") String cash,
+						   Model model,
+						   HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" ") && !cash.contains(" "))
+		{
+			boolean status1 = false;
+			boolean status2 = false;
+			JSONObject userJson = new JSONObject();
+			String username = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/UserInfo",token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.get("IsLogged").toString().equals("true")) {
+					username = userJson.get("username").toString();
+					status1 = true;
+				}
+			}
+			if(status1) {
+				String responseStr2 = RequestForService(Startup.GetGatewayHostPort() + "/service/payment/Add_cash?username=" + username+"&cash="+cash, "none");
+				if (!responseStr2.contains("Error:")) {
+					JSONParser parser = new JSONParser();
+					userJson = (JSONObject) parser.parse(responseStr2);
+					if (userJson.get("Status").equals("Success")) {
+						status2 = true;
+					}
+				}
+			}
+			if(status2)
+				model.addAttribute("name","Success add");
+			else
+				model.addAttribute("name","Error token");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+
+	@GetMapping("/Withdraw_Cash")
+	public String WithdrawCash(@CookieValue(name="Token", defaultValue= "") String token,
+							   @RequestParam(name="cash", required=false, defaultValue= "") String cash,
+							   Model model,
+							   HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" ") && !cash.contains(" "))
+		{
+			boolean status1 = false;
+			boolean status2 = false;
+			JSONObject userJson = new JSONObject();
+			String username = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/UserInfo",token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.get("IsLogged").toString().equals("true")) {
+					username = userJson.get("username").toString();
+					status1 = true;
+				}
+			}
+			if(status1) {
+				String responseStr2 = RequestForService(Startup.GetGatewayHostPort() + "/service/payment/Withdraw_cash?username=" + username+"&cash="+cash, "none");
+				if (!responseStr2.contains("Error:")) {
+					JSONParser parser = new JSONParser();
+					userJson = (JSONObject) parser.parse(responseStr2);
+					if (userJson.get("Status").equals("Success")) {
+						status2 = true;
+					}
+				}
+			}
+			if(status2)
+				model.addAttribute("name","Success withdraw");
+			else
+				model.addAttribute("name","Error token");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Add_call")
+	public String AddCall(@CookieValue(name="Token", defaultValue= "") String token,
+						  @RequestParam(name="duration", required=false, defaultValue= "") String duration,
+						  Model model,
+						  HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" ") && !duration.contains(" "))
+		{
+			boolean status1 = false;
+			boolean status2 = false;
+			JSONObject userJson = new JSONObject();
+			String username = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/UserInfo",token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.get("IsLogged").toString().equals("true")) {
+					username = userJson.get("username").toString();
+					status1 = true;
+				}
+			}
+			if(status1) {
+				String responseStr2 = RequestForService(Startup.GetGatewayHostPort() + "/service/calls/New?username=" + username+"&duration="+duration, "none");
+				if (!responseStr2.contains("Error:")) {
+					JSONParser parser = new JSONParser();
+					userJson = (JSONObject) parser.parse(responseStr2);
+					if (userJson.get("Status").equals("Success")) {
+						status2 = true;
+					}
+				}
+			}
+			if(status2)
+				model.addAttribute("name","Success add");
+			else
+				model.addAttribute("name","Error token");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Account_logs")
+	public String AccountLogs(@CookieValue(name="Token", defaultValue= "") String token,
+						  @RequestParam(name="page", required=false, defaultValue= "") String page,
+						  Model model,
+						  HttpServletResponse response) throws IOException, ParseException {
+		if(!token.isEmpty() && !token.contains(" ") && !page.contains(" "))
+		{
+			boolean status1 = false;
+			JSONObject userJson = new JSONObject();
+			String logs = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/account/Logs?page="+page,token);
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.containsKey("logs")) {
+					logs = userJson.get("logs").toString();
+					status1 = true;
+				}
+			}
+			if(status1)
+				model.addAttribute("name",logs);
+			else
+				model.addAttribute("name","Error token");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Calls_logs")
+	public String CallsLogs(
+							  @RequestParam(name="page", required=false, defaultValue= "") String page,
+							  Model model,
+							  HttpServletResponse response) throws IOException, ParseException {
+		if(!page.contains(" "))
+		{
+			boolean status1 = false;
+			JSONObject userJson = new JSONObject();
+			String logs = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/calls/Logs?page="+page,"none");
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.containsKey("logs")) {
+					logs = userJson.get("logs").toString();
+					status1 = true;
+				}
+			}
+			if(status1)
+				model.addAttribute("name",logs);
+			else
+				model.addAttribute("name","Error");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
+	@GetMapping("/Payment_logs")
+	public String PaymentLogs(
+			@RequestParam(name="page", required=false, defaultValue= "") String page,
+			Model model,
+			HttpServletResponse response) throws IOException, ParseException {
+		if(!page.contains(" "))
+		{
+			boolean status1 = false;
+			JSONObject userJson = new JSONObject();
+			String logs = "";
+			String responseStr1 = RequestForService(Startup.GetGatewayHostPort()+"/service/payment/Logs?page="+page,"none");
+			if (!responseStr1.contains("Error:")) {
+				JSONParser parser = new JSONParser();
+				userJson = (JSONObject) parser.parse(responseStr1);
+				if(userJson.get("Status").equals("Success") && userJson.containsKey("logs")) {
+					logs = userJson.get("logs").toString();
+					status1 = true;
+				}
+			}
+			if(status1)
+				model.addAttribute("name",logs);
+			else
+				model.addAttribute("name","Error");
+		}
+		else {
+			model.addAttribute("name","Error parameters");
+			response.setStatus(400);
+		}
+		return "greeting";
+	}
+
 
 
 
